@@ -1,0 +1,10 @@
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
+
+dependencies {
+    implementation Libs.kotlin_std
+    implementation Libs.koin_core
+    implementation Libs.retrofit
+    implementation Libs.retrofit_gson
+    implementation Libs.okhttp_logging
+}

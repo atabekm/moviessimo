@@ -21,10 +21,13 @@ android {
 }
 
 dependencies {
+    implementation project(":core-network")
+
     implementation Libs.kotlin_std
     implementation Libs.appcompat
     implementation Libs.ktx
     implementation Libs.constraint_layout
+    implementation Libs.koin_android
 
     testImplementation TestLibs.junit
 

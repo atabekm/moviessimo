@@ -6,6 +6,11 @@ object Android {
     const val version_name = "0.1"
 }
 
+object Modules {
+    const val core_networks = ":core-network"
+    const val core_prefs = ":core-prefs"
+}
+
 object Versions {
     const val appcompat = "1.0.2"
     const val constraint_layout = "1.1.3"

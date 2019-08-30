@@ -21,8 +21,8 @@ android {
 }
 
 dependencies {
-    implementation project(":core-network")
-    implementation project(":core-prefs")
+    implementation project(Modules.core_networks)
+    implementation project(Modules.core_prefs)
 
     implementation Libs.kotlin_std
     implementation Libs.appcompat

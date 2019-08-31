@@ -9,6 +9,7 @@ object Android {
 object Modules {
     const val core_networks = ":core-network"
     const val core_prefs = ":core-prefs"
+    const val feature_list = ":feature-list"
 }
 
 object Versions {

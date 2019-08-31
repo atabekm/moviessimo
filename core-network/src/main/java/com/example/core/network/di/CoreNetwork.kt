@@ -7,7 +7,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object Network {
+object CoreNetwork {
 
     val module = module {
         factory<Converter.Factory> { GsonConverterFactory.create() }
@@ -23,7 +23,7 @@ object Network {
         }
         single<Retrofit> {
             Retrofit.Builder()
-                .baseUrl(getProperty<String>("baseUrl"))
+                .baseUrl(getProperty<String>("base_url"))
                 .client(get())
                 .addConverterFactory(get())
                 .build()

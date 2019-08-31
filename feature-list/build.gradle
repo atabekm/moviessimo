@@ -1,16 +1,17 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion Android.compile_sdk_version
     defaultConfig {
-        applicationId "com.example.moviessimo"
         minSdkVersion Android.min_sdk_version
         targetSdkVersion Android.target_sdk_version
         versionCode Android.version_code
         versionName Android.version_name
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
     }
     buildTypes {
         release {
@@ -22,16 +23,8 @@ android {
 
 dependencies {
     implementation project(Modules.core_networks)
-    implementation project(Modules.core_prefs)
-    implementation project(Modules.feature_list)
 
     implementation Libs.kotlin_std
-    implementation Libs.appcompat
-    implementation Libs.ktx
-    implementation Libs.constraint_layout
     implementation Libs.koin_android
-
-    testImplementation TestLibs.junit
-
-    androidTestImplementation TestLibs.espresso_core
+    implementation Libs.retrofit
 }

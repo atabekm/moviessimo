@@ -1,8 +1,9 @@
 package com.example.moviessimo
 
 import android.app.Application
-import com.example.core.network.di.Network
-import com.example.core.prefs.di.Prefs
+import com.example.core.network.di.CoreNetwork
+import com.example.core.prefs.di.CorePrefs
+import com.example.feature.list.di.FeatureList
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -15,7 +16,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(Network.module, Prefs.module))
+            modules(listOf(CoreNetwork.module, CorePrefs.module, FeatureList.module))
         }
     }
 }

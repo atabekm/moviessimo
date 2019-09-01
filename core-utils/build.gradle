@@ -1,0 +1,27 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion Android.compile_sdk_version
+    defaultConfig {
+        minSdkVersion Android.min_sdk_version
+        targetSdkVersion Android.target_sdk_version
+        versionCode Android.version_code
+        versionName Android.version_name
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation Libs.kotlin_std
+    implementation Libs.viewmodel
+    implementation Libs.coroutines_android
+}

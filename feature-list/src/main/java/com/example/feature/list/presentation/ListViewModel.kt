@@ -16,7 +16,7 @@ class ListViewModel(
 
     val discoverMovieLiveData: LiveData<Resource<DiscoverMovie>> = liveData(dispatcher) {
         emit(Resource.loading())
-        val result = repository.getDiscoverMovies("")
+        val result = repository.getDiscoverMovies()
         when (result.isSuccessful) {
             true -> emit(Resource.success(result.body()))
             false -> emit(Resource.error("Couldn't load movies list"))

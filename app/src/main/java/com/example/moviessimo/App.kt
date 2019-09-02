@@ -16,6 +16,11 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
+            properties(mapOf(
+                "is_debug" to BuildConfig.DEBUG,
+                "api_key" to BuildConfig.API_KEY
+            ))
+            fileProperties()
             modules(listOf(CoreNetwork.module, CorePrefs.module, FeatureList.module))
         }
     }

@@ -6,7 +6,7 @@ import retrofit2.Response
 
 class DiscoverMoviesUseCase(private val repository: MovieListRepository) {
 
-    suspend operator fun invoke(apiKey: String): Response<DiscoverMovie> {
-        return repository.getDiscoverMovies(apiKey)
+    suspend operator fun invoke(): Response<DiscoverMovie> {
+        return repository.getDiscoverMovies()
     }
 }

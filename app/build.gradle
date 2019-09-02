@@ -13,7 +13,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        // put your TMDB api_key to local.properties file
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("local.properties").newDataInputStream())
+        def apiKey = properties.getProperty("api_key", "") as String
+
+        debug {
+            buildConfigField "String", "API_KEY", "\"$apiKey\""
+        }
         release {
+            buildConfigField "String", "API_KEY", "\"$apiKey\""
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

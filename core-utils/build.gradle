@@ -21,7 +21,7 @@ android {
 }
 
 dependencies {
+    implementation Libs.coroutines_android
     implementation Libs.kotlin_std
     implementation Libs.viewmodel
-    implementation Libs.coroutines_android
 }

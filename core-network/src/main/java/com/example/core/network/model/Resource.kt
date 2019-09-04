@@ -2,10 +2,10 @@ package com.example.core.network.model
 
 // From https://github.com/googlesamples/android-architecture-components/blob/master/GithubBrowserSample/app/src/main/java/com/android/example/github/vo/Resource.kt
 
-data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
+data class Resource<out T>(val status: Status, val data: T?, val message: String = "") {
     companion object {
         fun <T> success(data: T?): Resource<T> {
-            return Resource(Status.SUCCESS, data, null)
+            return Resource(Status.SUCCESS, data, "")
         }
 
         fun <T> error(msg: String): Resource<T> {
@@ -13,7 +13,7 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
         }
 
         fun <T> loading(): Resource<T> {
-            return Resource(Status.LOADING, null, null)
+            return Resource(Status.LOADING, null, "")
         }
     }
 }

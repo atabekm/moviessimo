@@ -43,6 +43,7 @@ dependencies {
     implementation Libs.ktx
     implementation Libs.constraint_layout
     implementation Libs.koin_android
+    implementation Libs.navigation
 
     testImplementation TestLibs.junit
 

@@ -36,4 +36,6 @@ dependencies {
     implementation project(Modules.core_utils)
 
     implementation Libs.appcompat
+    implementation Libs.gson
+    implementation Libs.retrofit
 }

@@ -37,6 +37,7 @@ dependencies {
     implementation project(Modules.core_networks)
     implementation project(Modules.core_prefs)
     implementation project(Modules.feature_list)
+    implementation project(Modules.feature_details)
 
     implementation Libs.kotlin_std
     implementation Libs.appcompat

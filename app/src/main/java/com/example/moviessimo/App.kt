@@ -3,6 +3,7 @@ package com.example.moviessimo
 import android.app.Application
 import com.example.core.network.di.CoreNetwork
 import com.example.core.prefs.di.CorePrefs
+import com.example.feature.details.di.FeatureDetail
 import com.example.feature.list.di.FeatureList
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -21,7 +22,14 @@ class App : Application() {
                 "api_key" to BuildConfig.API_KEY
             ))
             fileProperties()
-            modules(listOf(CoreNetwork.module, CorePrefs.module, FeatureList.module))
+            modules(
+                listOf(
+                    CoreNetwork.module,
+                    CorePrefs.module,
+                    FeatureList.module,
+                    FeatureDetail.module
+                )
+            )
         }
     }
 }

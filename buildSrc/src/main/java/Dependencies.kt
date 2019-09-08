@@ -11,6 +11,7 @@ object Modules {
     const val core_prefs = ":core-prefs"
     const val core_utils = ":core-utils"
     const val feature_list = ":feature-list"
+    const val feature_details = ":feature-details"
 }
 
 object Versions {

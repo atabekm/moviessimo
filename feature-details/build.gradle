@@ -38,6 +38,8 @@ dependencies {
     implementation Libs.appcompat
     implementation Libs.gson
     implementation Libs.kotlin_std
+    implementation Libs.koin_android
+    implementation Libs.koin_viewmodel
     implementation Libs.livedata
     implementation Libs.retrofit
 }

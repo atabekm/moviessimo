@@ -37,5 +37,7 @@ dependencies {
 
     implementation Libs.appcompat
     implementation Libs.gson
+    implementation Libs.kotlin_std
+    implementation Libs.livedata
     implementation Libs.retrofit
 }

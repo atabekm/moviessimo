@@ -9,6 +9,7 @@ import com.example.feature.list.domain.DiscoverMoviesUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class ListViewModel(
     private val useCase: DiscoverMoviesUseCase,
@@ -30,7 +31,7 @@ class ListViewModel(
                         false -> Resource.error("Failed to load movies: ${result.errorBody()?.string()}")
                     }
                 )
-            } catch (e : Exception) {
+            } catch (e: IOException) {
                 _movies.postValue(Resource.error("Failed to load movies: ${e.localizedMessage}"))
             }
         }

@@ -18,5 +18,4 @@ object FeatureList {
 
         viewModel { ListViewModel(get()) }
     }
-
 }

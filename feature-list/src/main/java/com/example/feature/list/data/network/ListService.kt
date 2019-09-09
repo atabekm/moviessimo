@@ -8,5 +8,4 @@ interface ListService {
 
     @GET("discover/movie")
     suspend fun getMovieList(): Response<DiscoverMovie>
-
 }

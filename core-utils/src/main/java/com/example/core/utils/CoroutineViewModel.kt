@@ -1,10 +1,10 @@
 package com.example.core.utils
 
 import androidx.lifecycle.ViewModel
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlin.coroutines.CoroutineContext
 
 open class CoroutineViewModel : ViewModel(), CoroutineScope {
     private val viewModelJob = Job()
@@ -16,5 +16,4 @@ open class CoroutineViewModel : ViewModel(), CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + viewModelJob
-
 }

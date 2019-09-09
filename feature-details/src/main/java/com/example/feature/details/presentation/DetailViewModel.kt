@@ -9,6 +9,7 @@ import com.example.feature.details.domain.GetMovieByIdUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.io.IOException
 
 class DetailViewModel(
     private val useCase: GetMovieByIdUseCase,
@@ -30,7 +31,7 @@ class DetailViewModel(
                         false -> Resource.error("Failed to load movie: ${result.errorBody()?.string()}")
                     }
                 )
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 _movie.postValue(Resource.error("Failed to load movie: ${e.localizedMessage}"))
             }
         }

@@ -9,14 +9,17 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.core.network.model.Status
 import com.example.feature.list.R
+import com.example.feature.list.navigation.MovieDetailsNavigation
 import com.example.feature.list.presentation.adapter.MovieAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
     private val listViewModel: ListViewModel by viewModel()
-    private val adapter = MovieAdapter()
+    val navigation: MovieDetailsNavigation by inject()
+    private val adapter = MovieAdapter(navigation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

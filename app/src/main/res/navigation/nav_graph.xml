@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/movieListFragment">
 
     <fragment android:id="@+id/movieListFragment"
-        android:name="com.example.feature.list.presentation.ListFragment"/>
+        android:name="com.example.feature.list.presentation.ListFragment">
 
+        <action android:id="@+id/actionMovieDetails"
+            app:destination="@id/movieDetailsFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/movieDetailsFragment"
+        android:name="com.example.feature.details.presentation.DetailFragment">
+
+        <argument
+            android:name="movie_id"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

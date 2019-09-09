@@ -1,0 +1,7 @@
+apply plugin: "io.gitlab.arturbosch.detekt"
+
+detekt {
+    toolVersion = "1.0.1"
+    input = files("src/main/java")
+    filters = ".*/resources/.*,.*/build/.*"
+}

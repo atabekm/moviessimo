@@ -15,11 +15,17 @@ buildscript {
     }
 }
 
+plugins {
+    id("io.gitlab.arturbosch.detekt").version("1.0.1")
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
     }
+    apply from: "$rootDir/ktlint.gradle"
+    apply from: "$rootDir/detekt.gradle"
 }
 
 task clean(type: Delete) {

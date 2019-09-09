@@ -14,9 +14,12 @@ android {
     }
     buildTypes {
         // put your TMDB api_key to local.properties file
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file("local.properties").newDataInputStream())
-        def apiKey = properties.getProperty("api_key", "") as String
+        def apiKey = ""
+        try {
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            apiKey = properties.getProperty("api_key", "") as String
+        } catch (Exception ignored) { }
 
         debug {
             buildConfigField "String", "API_KEY", "\"$apiKey\""

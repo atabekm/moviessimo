@@ -18,7 +18,7 @@ data class Movie(
     val video: Boolean?,
     val credits: Credit?,
     @SerializedName("backdrop_path") val backdropPath: String?,
-    @SerializedName("belongs_to_collection") val belongsToCollection: String?,
+    @SerializedName("belongs_to_collection") val belongsToCollection: Collection?,
     @SerializedName("imdb_id") val imdbId: String?,
     @SerializedName("original_language") val originalLanguage: String?,
     @SerializedName("original_title") val originalTitle: String?,

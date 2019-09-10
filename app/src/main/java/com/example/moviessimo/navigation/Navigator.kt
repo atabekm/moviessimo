@@ -18,7 +18,7 @@ class Navigator : MovieDetailsNavigation {
 
     override fun openMovie(id: Int) {
         val bundle = Bundle()
-        bundle.putInt("match_id", id)
+        bundle.putInt("movie_id", id)
         navController?.navigate(R.id.actionMovieDetails, bundle)
     }
 }

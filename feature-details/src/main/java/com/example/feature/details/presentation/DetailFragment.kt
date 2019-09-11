@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.core.network.model.Status
@@ -37,11 +38,16 @@ class DetailFragment : Fragment() {
 
         viewModel.movie.observe(viewLifecycleOwner, Observer {
             when (it.status) {
-                Status.LOADING -> {}
+                Status.LOADING -> {
+                    detailsProgress.isVisible = true
+                }
                 Status.SUCCESS -> {
+                    detailsProgress.isVisible = false
                     detailsText.text = it.data?.title
                 }
-                Status.ERROR -> {}
+                Status.ERROR -> {
+                    detailsProgress.isVisible = false
+                }
             }
         })
     }

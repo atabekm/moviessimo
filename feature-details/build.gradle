@@ -36,10 +36,12 @@ dependencies {
     implementation project(Modules.core_utils)
 
     implementation Libs.appcompat
+    implementation Libs.coil
     implementation Libs.gson
     implementation Libs.kotlin_std
     implementation Libs.koin_android
     implementation Libs.koin_viewmodel
+    implementation Libs.ktx
     implementation Libs.livedata
     implementation Libs.retrofit
 }

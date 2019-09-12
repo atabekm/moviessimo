@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import coil.api.load
 import com.example.core.network.model.Status
 import com.example.feature.details.R
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -39,14 +40,17 @@ class DetailFragment : Fragment() {
         viewModel.movie.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.LOADING -> {
-                    detailsProgress.isVisible = true
+                    detailProgress.isVisible = true
                 }
                 Status.SUCCESS -> {
-                    detailsProgress.isVisible = false
-                    detailsText.text = it.data?.title
+                    detailProgress.isVisible = false
+                    detailText.text = it.data?.title
+
+                    val url = "https://image.tmdb.org/t/p/w500${it.data?.backdropPath}"
+                    detailBackdrop.load(url)
                 }
                 Status.ERROR -> {
-                    detailsProgress.isVisible = false
+                    detailProgress.isVisible = false
                 }
             }
         })

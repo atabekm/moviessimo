@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Feature Details</string>
+    <string name="backdrop">backdrop</string>
 </resources>

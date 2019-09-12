@@ -37,6 +37,7 @@ dependencies {
 
     implementation Libs.appcompat
     implementation Libs.coil
+    implementation Libs.constraint_layout
     implementation Libs.gson
     implementation Libs.kotlin_std
     implementation Libs.koin_android

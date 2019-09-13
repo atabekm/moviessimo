@@ -53,6 +53,16 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <ImageView
+        android:id="@+id/detailPoster"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_margin_twice"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom|left|end" />
+
     <ProgressBar
         android:id="@+id/detailProgress"
         android:layout_width="wrap_content"

@@ -18,6 +18,10 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginBottom="@dimen/standard_margin"
+            app:expandedTitleMarginEnd="@dimen/expanded_text_margin_end"
+            app:expandedTitleMarginStart="@dimen/standard_margin"
+            app:expandedTitleTextAppearance="@style/ToolbarText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -28,6 +32,7 @@
                 android:contentDescription="@string/backdrop"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
+                android:tint="@color/backdrop_tint"
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
@@ -55,13 +60,13 @@
 
     <ImageView
         android:id="@+id/detailPoster"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/poster_width"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/standard_margin_twice"
+        android:layout_marginEnd="@dimen/standard_margin"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         app:layout_anchor="@id/appbar"
-        app:layout_anchorGravity="bottom|left|end" />
+        app:layout_anchorGravity="bottom|right|end" />
 
     <ProgressBar
         android:id="@+id/detailProgress"

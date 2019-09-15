@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="backdrop_tint">#80000000</color>
+    <color name="black_opacity_50">#80000000</color>
 </resources>

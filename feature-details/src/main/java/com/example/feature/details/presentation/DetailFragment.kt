@@ -47,20 +47,29 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.movie.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
+        viewModel.movie.observe(viewLifecycleOwner, Observer { result ->
+            when (result.status) {
                 Status.LOADING -> {
                     detailProgress.isVisible = true
                 }
                 Status.SUCCESS -> {
-                    detailProgress.isVisible = false
-                    collapsing_toolbar.title = it.data?.title
+                    result.data?.apply {
+                        detailProgress.isVisible = false
+                        collapsing_toolbar.title = title
 
-                    val urlBackdrop = "https://image.tmdb.org/t/p/w500${it.data?.backdropPath}"
-                    detailBackdrop.load(urlBackdrop)
+                        val urlBackdrop = "https://image.tmdb.org/t/p/w500$backdropPath"
+                        detailBackdrop.load(urlBackdrop)
 
-                    val urlPoster = "https://image.tmdb.org/t/p/w500${it.data?.posterPath}"
-                    detailPoster.load(urlPoster)
+                        val urlPoster = "https://image.tmdb.org/t/p/w500$posterPath"
+                        detailPoster.load(urlPoster)
+                        detailGenres.text = genres?.joinToString {
+                            it.name ?: ""
+                        } ?: ""
+                        detailDuration.text = "$runtime minutes"
+                        voteAverage?.let {
+                            detailRating.rating = it.div(2).toFloat()
+                        }
+                    }
                 }
                 Status.ERROR -> {
                     detailProgress.isVisible = false

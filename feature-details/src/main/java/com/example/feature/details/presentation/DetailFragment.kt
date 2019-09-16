@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.ViewCompat
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -50,6 +51,7 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         viewModel.movie.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> {
+                    detailRoot.isInvisible = true
                     detailProgress.isVisible = true
                 }
                 Status.SUCCESS -> {
@@ -69,10 +71,16 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         voteAverage?.let {
                             detailRating.rating = it.div(2).toFloat()
                         }
+                        detailOverview.text = overview
+                        detailCasting.text = credits?.cast?.take(5)?.joinToString {
+                            it.name
+                        }
                     }
+                    detailRoot.isInvisible = false
                 }
                 Status.ERROR -> {
                     detailProgress.isVisible = false
+                    detailRoot.isInvisible = true
                 }
             }
         })

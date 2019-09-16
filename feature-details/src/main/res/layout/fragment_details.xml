@@ -53,6 +53,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detailRoot"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/standard_margin">
@@ -87,6 +88,46 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/detailRating"
                 tools:text="1 hour 32 min" />
+
+            <TextView
+                android:id="@+id/detailOverviewCaption"
+                style="@style/CaptionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/overview"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailDuration" />
+
+            <TextView
+                android:id="@+id/detailOverview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailOverviewCaption"
+                tools:text="A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. " />
+
+            <TextView
+                android:id="@+id/detailCastingCaption"
+                style="@style/CaptionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/cast"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailOverview" />
+
+            <TextView
+                android:id="@+id/detailCasting"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailCastingCaption"
+                tools:text="Edward Norton, Brad Pitt, Meat Loaf, Jared Leto and etc." />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

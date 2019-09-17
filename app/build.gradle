@@ -39,6 +39,7 @@ android {
 dependencies {
     implementation project(Modules.core_networks)
     implementation project(Modules.core_prefs)
+    implementation project(Modules.core_utils)
     implementation project(Modules.feature_list)
     implementation project(Modules.feature_details)
 

@@ -1,5 +1,6 @@
 package com.example.feature.details.presentation
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,10 +27,13 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     companion object {
         const val POSTER_ANIMATION_DURATION = 200L
         const val RATIO_TO_ANIMATE_POSTER = 0.75
+        const val CAST_THRESHOLD = 5
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        activity?.window?.statusBarColor = Color.TRANSPARENT
 
         arguments?.apply {
             movieId = getInt("movie_id")
@@ -72,7 +76,7 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                             detailRating.rating = it.div(2).toFloat()
                         }
                         detailOverview.text = overview
-                        detailCasting.text = credits?.cast?.take(5)?.joinToString {
+                        detailCasting.text = credits?.cast?.take(CAST_THRESHOLD)?.joinToString {
                             it.name
                         }
                     }

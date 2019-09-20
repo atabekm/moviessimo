@@ -1,5 +1,5 @@
 package com.example.feature.list.navigation
 
-interface MovieDetailsNavigation {
+interface MovieListNavigation {
     fun openMovie(id: Int)
 }

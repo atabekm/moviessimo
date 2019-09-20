@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.core.network.model.Status
 import com.example.feature.list.R
-import com.example.feature.list.navigation.MovieDetailsNavigation
+import com.example.feature.list.navigation.MovieListNavigation
 import com.example.feature.list.presentation.adapter.MovieAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
     private val listViewModel: ListViewModel by viewModel()
-    val navigation: MovieDetailsNavigation by inject()
+    private val navigation: MovieListNavigation by inject()
     private val adapter = MovieAdapter(navigation)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,9 +54,8 @@ class ListFragment : Fragment() {
                 Status.ERROR -> {
                     movieProgress.isVisible = false
                     Snackbar.make(movieRecycler, result.message, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(getString(R.string.retry)) {
-                            listViewModel.requestMovies()
-                        }.show()
+                        .setAction(getString(R.string.retry)) { listViewModel.requestMovies() }
+                        .show()
                 }
             }
         })

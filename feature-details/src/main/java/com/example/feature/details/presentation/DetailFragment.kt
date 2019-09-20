@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -13,13 +14,16 @@ import androidx.lifecycle.Observer
 import coil.api.load
 import com.example.core.network.model.Status
 import com.example.feature.details.R
+import com.example.feature.details.navigation.MovieDetailsNavigation
 import com.google.android.material.appbar.AppBarLayout
 import kotlinx.android.synthetic.main.fragment_details.*
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
 class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
-    val viewModel: DetailViewModel by viewModel()
+    private val viewModel: DetailViewModel by viewModel()
+    private val navigation: MovieDetailsNavigation by inject()
     private var movieId = 0
     private var isPosterShown = true
     private var maxScrollSize = 0.0
@@ -52,6 +56,13 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (activity as AppCompatActivity).apply {
+            setSupportActionBar(toolbar)
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+            toolbar.setNavigationOnClickListener {
+                navigation.goToMovieList()
+            }
+        }
         viewModel.movie.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> {

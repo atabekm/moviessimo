@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.feature.list.R
 import com.example.feature.list.data.model.Movie
-import com.example.feature.list.navigation.MovieDetailsNavigation
+import com.example.feature.list.navigation.MovieListNavigation
 import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(
-    private val navigation: MovieDetailsNavigation
+    private val navigation: MovieListNavigation
 ) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,7 +31,7 @@ class MovieAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: Movie, navigation: MovieDetailsNavigation) {
+        fun bind(movie: Movie, navigation: MovieListNavigation) {
             itemView.setOnClickListener {
                 navigation.openMovie(movie.id)
             }

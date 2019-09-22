@@ -20,7 +20,7 @@ object Versions {
     const val coil = "0.6.1"
     const val coroutines = "1.3.0"
     const val espresso_core = "3.2.0"
-    const val gradle = "3.6.0-alpha11"
+    const val gradle = "3.6.0-alpha12"
     const val gson = "2.8.5"
     const val junit = "4.12"
     const val koin = "2.0.1"

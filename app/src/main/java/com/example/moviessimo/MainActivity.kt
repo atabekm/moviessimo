@@ -7,7 +7,7 @@ import com.example.moviessimo.navigation.Navigator
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
-    val navigator: Navigator by inject()
+    private val navigator: Navigator by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

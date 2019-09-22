@@ -31,7 +31,6 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     companion object {
         const val POSTER_ANIMATION_DURATION = 200L
         const val RATIO_TO_ANIMATE_POSTER = 0.75
-        const val CAST_THRESHOLD = 5
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,22 +73,13 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         detailProgress.isVisible = false
                         collapsing_toolbar.title = title
 
-                        val urlBackdrop = "https://image.tmdb.org/t/p/w500$backdropPath"
-                        detailBackdrop.load(urlBackdrop)
-
-                        val urlPoster = "https://image.tmdb.org/t/p/w500$posterPath"
-                        detailPoster.load(urlPoster)
-                        detailGenres.text = genres?.joinToString {
-                            it.name ?: ""
-                        } ?: ""
-                        detailDuration.text = "$runtime minutes"
-                        voteAverage?.let {
-                            detailRating.rating = it.div(2).toFloat()
-                        }
+                        detailBackdrop.load(backdropImage)
+                        detailPoster.load(posterImage)
+                        detailGenres.text = genres
+                        detailDuration.text = duration
+                        detailRating.rating = rating
                         detailOverview.text = overview
-                        detailCasting.text = credits?.cast?.take(CAST_THRESHOLD)?.joinToString {
-                            it.name
-                        }
+                        detailCasting.text = cast
                     }
                     detailRoot.isInvisible = false
                 }

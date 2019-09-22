@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.core.network.model.Resource
 import com.example.core.utils.CoroutineViewModel
-import com.example.feature.details.data.model.Movie
 import com.example.feature.details.domain.GetMovieByIdUseCase
+import com.example.feature.details.domain.model.Movie
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -26,9 +26,9 @@ class DetailViewModel(
                 val result = useCase(movieId)
 
                 _movie.postValue(
-                    when (result.isSuccessful) {
-                        true -> Resource.success(result.body())
-                        false -> Resource.error("Failed to load movie: ${result.errorBody()?.string()}")
+                    when (result.isSuccess) {
+                        true -> Resource.success(result.data)
+                        false -> Resource.error("Failed to load movie: ${result.error}")
                     }
                 )
             } catch (e: IOException) {

@@ -49,7 +49,7 @@ class ListFragment : Fragment() {
                 }
                 Status.SUCCESS -> {
                     movieProgress.isVisible = false
-                    adapter.submitList(result.data?.results)
+                    adapter.submitList(result.data)
                 }
                 Status.ERROR -> {
                     movieProgress.isVisible = false

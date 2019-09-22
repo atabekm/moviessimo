@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.feature.list.R
-import com.example.feature.list.data.model.Movie
+import com.example.feature.list.domain.model.Movie
 import com.example.feature.list.navigation.MovieListNavigation
 import kotlinx.android.synthetic.main.item_movie.view.*
 
@@ -35,8 +35,7 @@ class MovieAdapter(
             itemView.setOnClickListener {
                 navigation.openMovie(movie.id)
             }
-            val url = "https://image.tmdb.org/t/p/w185${movie.posterPath}"
-            itemView.itemMovieImage.load(url)
+            itemView.itemMovieImage.load(movie.posterImage)
         }
     }
 }

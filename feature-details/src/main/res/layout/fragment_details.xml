@@ -110,6 +110,50 @@
                 tools:text="A ticking-time-bomb insomniac and a slippery soap salesman channel primal male aggression into a shocking new form of therapy. " />
 
             <TextView
+                android:id="@+id/detailDirectorCaption"
+                style="@style/CaptionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/director"
+                app:layout_constraintEnd_toStartOf="@+id/detailScreenplayCaption"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailOverview" />
+
+            <TextView
+                android:id="@+id/detailDirector"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin_half"
+                app:layout_constraintEnd_toStartOf="@+id/detailScreenplay"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailDirectorCaption"
+                tools:text="David Fincher" />
+
+            <TextView
+                android:id="@+id/detailScreenplayCaption"
+                style="@style/CaptionText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/screenplay"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/detailDirectorCaption"
+                app:layout_constraintTop_toBottomOf="@id/detailOverview" />
+
+            <TextView
+                android:id="@+id/detailScreenplay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_margin_half"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/detailDirector"
+                app:layout_constraintTop_toBottomOf="@id/detailDirectorCaption"
+                tools:text="Jim Uhls" />
+
+            <TextView
                 android:id="@+id/detailCastingCaption"
                 style="@style/CaptionText"
                 android:layout_width="0dp"
@@ -117,7 +161,7 @@
                 android:text="@string/cast"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detailOverview" />
+                app:layout_constraintTop_toBottomOf="@id/detailDirector" />
 
             <TextView
                 android:id="@+id/detailCasting"

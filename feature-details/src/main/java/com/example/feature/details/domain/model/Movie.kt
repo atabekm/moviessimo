@@ -6,6 +6,8 @@ data class Movie(
     val overview: String,
     val genres: String,
     val duration: String,
+    val director: String,
+    val screenplay: String,
     val cast: String,
     val backdropImage: String,
     val posterImage: String,

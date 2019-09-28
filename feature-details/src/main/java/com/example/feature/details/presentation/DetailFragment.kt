@@ -79,6 +79,9 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                         detailDuration.text = duration
                         detailRating.rating = rating
                         detailOverview.text = overview
+                        detailDirector.text = director
+                        detailScreenplayCaption.isVisible = screenplay.isNotEmpty()
+                        detailScreenplay.text = screenplay
                         detailCasting.text = cast
                     }
                     detailRoot.isInvisible = false

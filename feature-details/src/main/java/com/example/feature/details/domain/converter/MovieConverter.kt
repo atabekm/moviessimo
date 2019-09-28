@@ -18,6 +18,12 @@ object MovieConverter {
                     it.name ?: ""
                 } ?: "",
             duration = "${movie?.runtime} minutes",
+            director = movie?.credits?.crew
+                ?.firstOrNull { it.job == "Director" }
+                ?.name ?: "",
+            screenplay = movie?.credits?.crew
+                ?.firstOrNull { it.job == "Screenplay" || it.job == "Writer" }
+                ?.name ?: "",
             cast = movie?.credits?.cast
                 ?.filterNot { it.name.isBlank() }
                 ?.take(CAST_THRESHOLD)

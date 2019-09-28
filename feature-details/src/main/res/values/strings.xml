@@ -3,4 +3,6 @@
     <string name="backdrop">backdrop</string>
     <string name="cast">Cast</string>
     <string name="overview">Overview</string>
+    <string name="director">Director</string>
+    <string name="screenplay">Screenplay</string>
 </resources>

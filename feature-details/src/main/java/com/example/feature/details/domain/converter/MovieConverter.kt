@@ -3,7 +3,6 @@ package com.example.feature.details.domain.converter
 import com.example.feature.details.domain.model.Movie
 
 object MovieConverter {
-    private const val CAST_THRESHOLD = 5
 
     fun fromDataToDomain(movie: com.example.feature.details.data.model.Movie?): Movie {
         return Movie(
@@ -26,7 +25,6 @@ object MovieConverter {
                 ?.name ?: "",
             cast = movie?.credits?.cast
                 ?.filterNot { it.name.isBlank() }
-                ?.take(CAST_THRESHOLD)
                 ?.joinToString {
                     it.name
                 } ?: "",

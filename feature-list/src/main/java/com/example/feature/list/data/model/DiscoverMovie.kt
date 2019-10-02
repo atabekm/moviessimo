@@ -12,16 +12,16 @@ data class DiscoverMovie(
 data class Movie(
     val id: Int,
     val title: String,
-    val overview: String,
-    val adult: Boolean,
-    val popularity: Float,
-    val video: Boolean,
-    @SerializedName("poster_path") val posterPath: String?,
-    @SerializedName("release_date") val releaseDate: String,
-    @SerializedName("genre_ids") val genreIds: List<Int>,
-    @SerializedName("original_title") val originalTitle: String,
-    @SerializedName("original_language") val originalLanguage: String,
-    @SerializedName("backdrop_path") val backdropPath: String?,
-    @SerializedName("vote_count") val voteCount: Int,
-    @SerializedName("vote_average") val voteAverage: Float
+    val overview: String = "",
+    val adult: Boolean = false,
+    val popularity: Float = 0f,
+    val video: Boolean = false,
+    @SerializedName("poster_path") val posterPath: String? = "",
+    @SerializedName("release_date") val releaseDate: String = "",
+    @SerializedName("genre_ids") val genreIds: List<Int> = listOf(),
+    @SerializedName("original_title") val originalTitle: String = "",
+    @SerializedName("original_language") val originalLanguage: String = "",
+    @SerializedName("backdrop_path") val backdropPath: String? = "",
+    @SerializedName("vote_count") val voteCount: Int = 0,
+    @SerializedName("vote_average") val voteAverage: Float = 0f
 )

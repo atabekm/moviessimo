@@ -46,4 +46,8 @@ dependencies {
     implementation Libs.material
     implementation Libs.retrofit
     implementation Libs.recycler_view
+
+    testImplementation TestLibs.core_testing
+    testImplementation TestLibs.junit
+    testImplementation TestLibs.mockk
 }

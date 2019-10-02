@@ -12,7 +12,7 @@ class DiscoverMoviesUseCase(private val repository: MovieListRepository) {
         return NetworkResponse(
             isSuccess = movieResponse.isSuccessful,
             data = movieResponse.body()?.results?.map(MovieConverter::fromDataToDomain) ?: listOf(),
-            error = movieResponse.errorBody().toString()
+            error = movieResponse.message()
         )
     }
 }

@@ -49,8 +49,4 @@ dependencies {
     implementation Libs.constraint_layout
     implementation Libs.koin_android
     implementation Libs.navigation
-
-    testImplementation TestLibs.junit
-
-    androidTestImplementation TestLibs.espresso_core
 }

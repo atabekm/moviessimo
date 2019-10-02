@@ -18,7 +18,8 @@ object Versions {
     const val appcompat = "1.0.2"
     const val constraint_layout = "1.1.3"
     const val coil = "0.6.1"
-    const val coroutines = "1.3.0"
+    const val core_testing = "1.1.1"
+    const val coroutines = "1.3.2"
     const val espresso_core = "3.2.0"
     const val gradle = "3.6.0-alpha12"
     const val gson = "2.8.5"
@@ -28,6 +29,7 @@ object Versions {
     const val ktx = "1.0.2"
     const val lifecycle = "2.2.0-alpha03"
     const val material = "1.0.0"
+    const val mockk = "1.9.3"
     const val navigation = "1.0.0"
     const val recycler_view = "1.0.0"
     const val retrofit = "2.6.1"
@@ -59,6 +61,8 @@ object Libs {
 }
 
 object TestLibs {
+    const val core_testing = "android.arch.core:core-testing:${Versions.core_testing}"
     const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
     const val junit = "junit:junit:${Versions.junit}"
+    const val mockk = "io.mockk:mockk:${Versions.mockk}"
 }

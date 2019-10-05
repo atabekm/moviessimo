@@ -16,7 +16,7 @@ object MovieConverter {
                 ?.joinToString {
                     it.name ?: ""
                 } ?: "",
-            duration = "${movie?.runtime} minutes",
+            duration = movie?.runtime?.let { "$it minutes" } ?: "",
             director = movie?.credits?.crew
                 ?.firstOrNull { it.job == "Director" }
                 ?.name ?: "",
@@ -28,8 +28,8 @@ object MovieConverter {
                 ?.joinToString {
                     it.name
                 } ?: "",
-            backdropImage = "https://image.tmdb.org/t/p/w500${movie?.backdropPath}",
-            posterImage = "https://image.tmdb.org/t/p/w500${movie?.posterPath}",
+            backdropImage = movie?.backdropPath?.let { "https://image.tmdb.org/t/p/w500$it" } ?: "",
+            posterImage = movie?.posterPath?.let { "https://image.tmdb.org/t/p/w500$it" } ?: "",
             releaseDate = movie?.releaseDate ?: "",
             rating = movie?.voteAverage?.div(2)?.toFloat() ?: 0f
         )

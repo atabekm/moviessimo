@@ -28,11 +28,11 @@ class DetailViewModel(
                 _movie.postValue(
                     when (result.isSuccess) {
                         true -> Resource.success(result.data)
-                        false -> Resource.error("Failed to load movie: ${result.error}")
+                        false -> Resource.error("Failed to get movie details: ${result.error}")
                     }
                 )
             } catch (e: IOException) {
-                _movie.postValue(Resource.error("Failed to load movie: ${e.localizedMessage}"))
+                _movie.postValue(Resource.error("Failed to get movie details: ${e.localizedMessage}"))
             }
         }
     }

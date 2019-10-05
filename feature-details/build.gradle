@@ -45,4 +45,8 @@ dependencies {
     implementation Libs.material
     implementation Libs.livedata
     implementation Libs.retrofit
+
+    testImplementation TestLibs.core_testing
+    testImplementation TestLibs.junit
+    testImplementation TestLibs.mockk
 }

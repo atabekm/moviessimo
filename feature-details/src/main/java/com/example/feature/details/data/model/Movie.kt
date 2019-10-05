@@ -6,7 +6,7 @@ data class Movie(
     val adult: Boolean?,
     val id: Int?,
     val budget: Long?,
-    val genres: List<Genres>?,
+    val genres: List<Genre>?,
     val homepage: String?,
     val overview: String?,
     val popularity: Double?,

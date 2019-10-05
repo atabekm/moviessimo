@@ -12,7 +12,7 @@ class GetMovieByIdUseCase(private val repository: MovieDetailRepository) {
         return NetworkResponse(
             isSuccess = movieResponse.isSuccessful,
             data = MovieConverter.fromDataToDomain(movieResponse.body()),
-            error = movieResponse.errorBody().toString()
+            error = movieResponse.message()
         )
     }
 }

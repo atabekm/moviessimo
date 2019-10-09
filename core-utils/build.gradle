@@ -18,10 +18,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
+    implementation Libs.coil
     implementation Libs.coroutines_android
     implementation Libs.kotlin_std
-    implementation Libs.viewmodel
+    implementation Libs.viewmodel_ktx
 }

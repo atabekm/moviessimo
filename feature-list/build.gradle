@@ -50,4 +50,16 @@ dependencies {
     testImplementation TestLibs.core_testing
     testImplementation TestLibs.junit
     testImplementation TestLibs.mockk
+
+    debugImplementation TestLibs.fragment_testing
+    debugImplementation TestLibs.test_core
+    androidTestImplementation TestLibs.espresso_core
+    androidTestImplementation TestLibs.kakao
+    androidTestImplementation Libs.koin_core
+    androidTestImplementation TestLibs.koin_test
+    androidTestImplementation TestLibs.mockk_android
+    androidTestImplementation TestLibs.test_core
+    androidTestImplementation TestLibs.test_ext
+    androidTestImplementation TestLibs.test_rules
+    androidTestImplementation TestLibs.test_runner
 }

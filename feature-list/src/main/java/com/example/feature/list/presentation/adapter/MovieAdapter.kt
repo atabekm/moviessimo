@@ -36,6 +36,7 @@ class MovieAdapter(
                 navigation.openMovie(movie.id)
             }
             itemView.itemMovieImage.load(movie.posterImage)
+            itemView.itemMovieImage.tag = movie.posterImage
         }
     }
 }

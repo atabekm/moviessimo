@@ -1,6 +1,7 @@
 package com.example.feature.details.domain.converter
 
 import com.example.feature.details.domain.model.Movie
+import kotlin.math.roundToLong
 
 object MovieConverter {
 
@@ -31,7 +32,7 @@ object MovieConverter {
             backdropImage = movie?.backdropPath?.let { "https://image.tmdb.org/t/p/w500$it" } ?: "",
             posterImage = movie?.posterPath?.let { "https://image.tmdb.org/t/p/w500$it" } ?: "",
             releaseDate = movie?.releaseDate ?: "",
-            rating = movie?.voteAverage?.div(2)?.toFloat() ?: 0f
+            rating = movie?.voteAverage?.div(2)?.roundToLong()?.toFloat() ?: 0f
         )
     }
 }

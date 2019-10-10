@@ -12,7 +12,7 @@
     </fragment>
 
     <fragment android:id="@+id/movieDetailsFragment"
-        android:name="com.example.feature.details.presentation.DetailFragment">
+        android:name="com.example.feature.details.presentation.DetailsFragment">
 
         <argument
             android:name="movie_id"

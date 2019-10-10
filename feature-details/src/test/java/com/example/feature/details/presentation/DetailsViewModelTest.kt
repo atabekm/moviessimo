@@ -3,8 +3,8 @@ package com.example.feature.details.presentation
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.core.network.model.NetworkResponse
 import com.example.core.network.model.Status
-import com.example.feature.details.TestData.movieDomain
 import com.example.feature.details.domain.GetMovieByIdUseCase
+import com.example.feature.details.domain.model.TestData.movieDomain
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -14,9 +14,9 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.IOException
 
-class DetailViewModelTest {
+class DetailsViewModelTest {
     private val useCaseMock = mockk<GetMovieByIdUseCase>()
-    private val viewModel = DetailViewModel(useCaseMock, Dispatchers.Unconfined)
+    private val viewModel = DetailsViewModel(useCaseMock, Dispatchers.Unconfined)
     private val errorMessage = "error message"
     private val movieId = 123
 

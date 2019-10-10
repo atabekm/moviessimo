@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+        android:id="@+id/detailAppbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_backdrop_height"
         android:fitsSystemWindows="true"
@@ -15,7 +15,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+            android:id="@+id/detailCollapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
@@ -38,7 +38,7 @@
                 app:layout_collapseMode="parallax" />
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@+id/detailToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
@@ -182,10 +182,11 @@
         android:id="@+id/detailPoster"
         android:layout_width="@dimen/poster_width"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/poster_width"
         android:layout_marginEnd="@dimen/standard_margin"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        app:layout_anchor="@id/appbar"
+        app:layout_anchor="@id/detailAppbar"
         app:layout_anchorGravity="bottom|right|end" />
 
     <ProgressBar

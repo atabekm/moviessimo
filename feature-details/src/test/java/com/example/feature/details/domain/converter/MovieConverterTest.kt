@@ -1,10 +1,10 @@
 package com.example.feature.details.domain.converter
 
-import com.example.feature.details.TestData.cast1
-import com.example.feature.details.TestData.cast2
-import com.example.feature.details.TestData.crew1
-import com.example.feature.details.TestData.crew2
-import com.example.feature.details.TestData.movieData
+import com.example.feature.details.domain.model.TestData.cast1
+import com.example.feature.details.domain.model.TestData.cast2
+import com.example.feature.details.domain.model.TestData.crew1
+import com.example.feature.details.domain.model.TestData.crew2
+import com.example.feature.details.domain.model.TestData.movieData
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

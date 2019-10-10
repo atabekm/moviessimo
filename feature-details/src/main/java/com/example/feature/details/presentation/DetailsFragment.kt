@@ -21,8 +21,8 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
-class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
-    private val viewModel: DetailViewModel by viewModel()
+class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
+    private val viewModel: DetailsViewModel by viewModel()
     private val navigation: MovieDetailsNavigation by inject()
     private var movieId = 0
     private var isPosterShown = true
@@ -55,13 +55,18 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        (activity as AppCompatActivity).apply {
-            setSupportActionBar(toolbar)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
-            toolbar.setNavigationOnClickListener {
-                navigation.goToMovieList()
+        // This if condition is only to avoid the block to executed in instrumentation tests
+        if (activity is AppCompatActivity) {
+            (activity as AppCompatActivity).apply {
+                setSupportActionBar(detailToolbar)
+                supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
         }
+
+        detailToolbar.setNavigationOnClickListener {
+            navigation.goToMovieList()
+        }
+
         viewModel.movie.observe(viewLifecycleOwner, Observer { result ->
             when (result.status) {
                 Status.LOADING -> {
@@ -71,7 +76,7 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
                 Status.SUCCESS -> {
                     result.data?.apply {
                         detailProgress.isVisible = false
-                        collapsing_toolbar.title = title
+                        detailCollapsingToolbar.title = title
 
                         detailBackdrop.load(backdropImage)
                         detailPoster.load(posterImage)
@@ -96,11 +101,11 @@ class DetailFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
     override fun onResume() {
         super.onResume()
-        appbar.addOnOffsetChangedListener(this)
+        detailAppbar.addOnOffsetChangedListener(this)
     }
 
     override fun onPause() {
-        appbar.removeOnOffsetChangedListener(this)
+        detailAppbar.removeOnOffsetChangedListener(this)
         super.onPause()
     }
 

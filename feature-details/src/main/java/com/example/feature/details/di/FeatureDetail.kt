@@ -4,7 +4,7 @@ import com.example.feature.details.data.MovieDetailRepository
 import com.example.feature.details.data.MovieDetailRepositoryImpl
 import com.example.feature.details.data.network.DetailService
 import com.example.feature.details.domain.GetMovieByIdUseCase
-import com.example.feature.details.presentation.DetailViewModel
+import com.example.feature.details.presentation.DetailsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -16,6 +16,6 @@ object FeatureDetail {
         single<MovieDetailRepository> { MovieDetailRepositoryImpl(get()) }
         single { GetMovieByIdUseCase(get()) }
 
-        viewModel { DetailViewModel(get()) }
+        viewModel { DetailsViewModel(get()) }
     }
 }

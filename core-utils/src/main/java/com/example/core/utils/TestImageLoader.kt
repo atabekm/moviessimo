@@ -30,7 +30,9 @@ class TestImageLoader : ImageLoader {
 
     private val disposable = object : RequestDisposable {
         override fun isDisposed() = true
-        override fun dispose() {}
+        override fun dispose() {
+            // No-op
+        }
     }
 
     override val defaults = DefaultRequestOptions()
@@ -45,7 +47,11 @@ class TestImageLoader : ImageLoader {
 
     override suspend fun get(request: GetRequest) = getDrawable()
 
-    override fun clearMemory() {}
+    override fun clearMemory() {
+        // No-op
+    }
 
-    override fun shutdown() {}
+    override fun shutdown() {
+        // No-op
+    }
 }

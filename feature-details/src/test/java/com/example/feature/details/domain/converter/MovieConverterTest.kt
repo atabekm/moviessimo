@@ -7,6 +7,7 @@ import com.example.feature.details.domain.model.TestData.crew2
 import com.example.feature.details.domain.model.TestData.movieData
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import kotlin.math.roundToInt
 
 class MovieConverterTest {
 
@@ -27,7 +28,7 @@ class MovieConverterTest {
         )
         assertEquals("https://image.tmdb.org/t/p/w500${movieData.posterPath}", result.posterImage)
         assertEquals(movieData.releaseDate, result.releaseDate)
-        assertEquals(movieData.voteAverage?.div(2)?.toFloat(), result.rating)
+        assertEquals(movieData.voteAverage?.div(2)?.roundToInt()?.toFloat(), result.rating)
     }
 
     @Test

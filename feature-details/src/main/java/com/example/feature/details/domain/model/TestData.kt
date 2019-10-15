@@ -9,6 +9,9 @@ import com.example.feature.details.data.model.Movie
 import com.example.feature.details.domain.converter.MovieConverter
 
 object TestData {
+    private const val GENRE_CRIME_ID = 80
+    private const val GENRE_THRILLER_ID = 53
+    private const val GENRE_DRAMA_ID = 18
 
     val cast1 = Cast(
         castId = 2,
@@ -53,9 +56,14 @@ object TestData {
         adult = false,
         id = 475557,
         budget = 55000000,
-        genres = listOf(Genre(80, "Crime"), Genre(53, "Thriller"), Genre(18, "Drama")),
+        genres = listOf(
+            Genre(GENRE_CRIME_ID, "Crime"),
+            Genre(GENRE_THRILLER_ID, "Thriller"),
+            Genre(GENRE_DRAMA_ID, "Drama")
+        ),
         homepage = "http://www.jokermovie.net",
-        overview = "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and chaos in Gotham City while becoming an infamous psychopathic crime figure.",
+        overview = "During the 1980s, a failed stand-up comedian is driven insane and turns to a life of crime and " +
+            "chaos in Gotham City while becoming an infamous psychopathic crime figure.",
         popularity = 261.285,
         revenue = 0,
         runtime = 122,

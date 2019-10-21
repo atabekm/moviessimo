@@ -6,15 +6,18 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import coil.Coil
 import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.screen.Screen.Companion.onScreen
-import com.example.core.network.model.NetworkResponse
 import com.example.core.utils.TestImageLoader
 import com.example.feature.list.R
+import com.example.feature.list.data.MovieListRepository
+import com.example.feature.list.data.model.DiscoverMovie
+import com.example.feature.list.data.model.Movie
 import com.example.feature.list.domain.DiscoverMoviesUseCase
-import com.example.feature.list.domain.model.Movie
+import com.example.feature.list.domain.converter.MovieConverter
 import com.example.feature.list.navigation.MovieListNavigation
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
+import okhttp3.internal.http.RealResponseBody
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -24,14 +27,22 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
+import retrofit2.Response
 
 @RunWith(AndroidJUnit4::class)
 class ListFragmentTest : KoinTest {
     private val movieListNavigation = mockk<MovieListNavigation>()
-    private val useCase = mockk<DiscoverMoviesUseCase>()
-    private val movieList = (1..30).map { id ->
+    private val repository = mockk<MovieListRepository>()
+    private val movieListData = (1..30).map { id ->
         Movie(id, "posterImage$id")
     }.toList()
+    private val movieListDomain = movieListData.map { MovieConverter.fromDataToDomain(it) }
+    private val discoverMovie = DiscoverMovie(
+        1,
+        movieListData,
+        1,
+        1
+    )
 
     @Before
     fun setUp() {
@@ -39,7 +50,7 @@ class ListFragmentTest : KoinTest {
             modules(
                 module {
                     factory { movieListNavigation }
-                    factory { useCase }
+                    factory { DiscoverMoviesUseCase(repository) }
                     viewModel { ListViewModel(get(), Dispatchers.Main) }
                 }
             )
@@ -57,20 +68,20 @@ class ListFragmentTest : KoinTest {
 
     @Test
     fun verifyMovieListIsPopulated_givenValidData() {
-        coEvery { useCase.invoke() } returns NetworkResponse(true, movieList, "")
+        coEvery { repository.getDiscoverMovies() } returns Response.success(discoverMovie)
 
         launchFragmentInContainer<ListFragment>(Bundle(), R.style.Theme_AppCompat_Light_NoActionBar)
 
         onScreen<ListScreen> {
             recycler {
                 isVisible()
-                hasSize(movieList.size)
+                hasSize(movieListDomain.size)
 
                 firstChild<ListScreen.MovieItem> {
                     isDisplayed()
                     image {
                         isVisible()
-                        hasTag(movieList.first().posterImage)
+                        hasTag(movieListDomain.first().posterImage)
                     }
                 }
 
@@ -80,7 +91,7 @@ class ListFragmentTest : KoinTest {
                     isDisplayed()
                     image {
                         isVisible()
-                        hasTag(movieList.last().posterImage)
+                        hasTag(movieListDomain.last().posterImage)
                     }
                 }
             }
@@ -89,7 +100,7 @@ class ListFragmentTest : KoinTest {
 
     @Test
     fun verifyMovieListIsEmpty_givenNoData_thenRetry() {
-        coEvery { useCase.invoke() } returns NetworkResponse(false, listOf(), "")
+        coEvery { repository.getDiscoverMovies() } returns Response.error(400, RealResponseBody("type", 0, null))
 
         launchFragmentInContainer<ListFragment>(Bundle(), R.style.Theme_AppCompat_Light_NoActionBar)
 
@@ -97,11 +108,12 @@ class ListFragmentTest : KoinTest {
         onScreen<ListScreen> {
             recycler {
                 hasSize(0)
+                idle(500)
             }
         }
 
         // next call to useCase should return successful NetworkResponse
-        coEvery { useCase.invoke() } returns NetworkResponse(true, movieList, "")
+        coEvery { repository.getDiscoverMovies() } returns Response.success(discoverMovie)
 
         onScreen<ListScreen> {
             // show snackbar when we have problems retrieving data from network
@@ -120,7 +132,7 @@ class ListFragmentTest : KoinTest {
 
             // verify we got proper results
             recycler {
-                hasSize(movieList.size)
+                hasSize(movieListDomain.size)
             }
         }
     }

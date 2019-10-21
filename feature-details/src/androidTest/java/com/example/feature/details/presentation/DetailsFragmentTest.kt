@@ -6,10 +6,11 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import coil.Coil
 import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.screen.Screen.Companion.onScreen
-import com.example.core.network.model.NetworkResponse
 import com.example.core.utils.TestImageLoader
 import com.example.feature.details.R
+import com.example.feature.details.data.MovieDetailRepository
 import com.example.feature.details.domain.GetMovieByIdUseCase
+import com.example.feature.details.domain.model.TestData.movieData
 import com.example.feature.details.domain.model.TestData.movieDomain
 import com.example.feature.details.kakao.hasAlpha
 import com.example.feature.details.navigation.MovieDetailsNavigation
@@ -25,11 +26,12 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
+import retrofit2.Response
 
 @RunWith(AndroidJUnit4::class)
 class DetailsFragmentTest : KoinTest {
     private val movieDetailsNavigation = mockk<MovieDetailsNavigation>()
-    private val useCase = mockk<GetMovieByIdUseCase>()
+    private val repository = mockk<MovieDetailRepository>()
     private val movieId = 1234
 
     @Before
@@ -38,7 +40,8 @@ class DetailsFragmentTest : KoinTest {
             modules(
                 module {
                     factory { movieDetailsNavigation }
-                    factory { useCase }
+                    factory { repository }
+                    factory { GetMovieByIdUseCase(get()) }
                     viewModel { DetailsViewModel(get(), Dispatchers.Main) }
                 }
             )
@@ -56,7 +59,7 @@ class DetailsFragmentTest : KoinTest {
 
     @Test
     fun verifyMovieDetailsIsPopulated_givenValidData() {
-        coEvery { useCase.invoke(movieId) } returns NetworkResponse(true, movieDomain, "")
+        coEvery { repository.getMovieDetails(movieId) } returns Response.success(movieData)
 
         launchFragmentInContainer<DetailsFragment>(Bundle().apply {
             putInt("movie_id", movieId)

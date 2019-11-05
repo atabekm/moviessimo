@@ -19,6 +19,8 @@ Project features:
 
 ## Tech stack
 
+<img src="screencast.gif" width="336" align="right" hspace="20">
+
 Libraries used in the app:
 
 * Google + JetBrains

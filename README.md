@@ -48,3 +48,10 @@ Libraries used in the app:
     * [detekt](https://arturbosch.github.io/detekt/)
 * Continuous integration
     * [Travis CI](https://travis-ci.org/)
+
+## Experiments
+
+Here are the experiments with latest libraries/technologies:
+
+* [experiment/jetpack-compose](https://github.com/atabekm/moviessimo/tree/experiment/jetpack-compose) branch: trying to play with [Jetpack Compose](https://developer.android.com/jetpack/compose).
+The library is still in early stages, so only basic text manipulation is covered.

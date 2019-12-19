@@ -37,13 +37,16 @@ dependencies {
 
     implementation Libs.appcompat
     implementation Libs.coil
+    implementation Libs.compose_layout
+    implementation Libs.compose_material
+    implementation Libs.compose_tooling
     implementation Libs.constraint_layout
     implementation Libs.gson
-    implementation Libs.kotlin_std
     implementation Libs.koin_android
     implementation Libs.koin_viewmodel
-    implementation Libs.material
+    implementation Libs.kotlin_std
     implementation Libs.livedata
+    implementation Libs.material
     implementation Libs.retrofit
 
     testImplementation TestLibs.core_testing

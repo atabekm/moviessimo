@@ -30,9 +30,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        compose true
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -40,13 +46,13 @@ dependencies {
     implementation project(Modules.core_networks)
     implementation project(Modules.core_prefs)
     implementation project(Modules.core_utils)
-    implementation project(Modules.feature_list)
     implementation project(Modules.feature_details)
+    implementation project(Modules.feature_list)
 
-    implementation Libs.kotlin_std
     implementation Libs.appcompat
-    implementation Libs.ktx
     implementation Libs.constraint_layout
     implementation Libs.koin_android
+    implementation Libs.kotlin_std
+    implementation Libs.ktx
     implementation Libs.navigation
 }

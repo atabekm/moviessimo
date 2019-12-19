@@ -27,7 +27,7 @@ android {
 dependencies {
     implementation Libs.koin_core
     implementation Libs.kotlin_std
+    implementation Libs.okhttp_logging
     implementation Libs.retrofit
     implementation Libs.retrofit_gson
-    implementation Libs.okhttp_logging
 }

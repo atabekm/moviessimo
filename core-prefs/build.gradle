@@ -25,6 +25,6 @@ android {
 }
 
 dependencies {
-    implementation Libs.kotlin_std
     implementation Libs.koin_android
+    implementation Libs.kotlin_std
 }

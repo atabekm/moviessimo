@@ -39,13 +39,13 @@ dependencies {
     implementation Libs.coil
     implementation Libs.constraint_layout
     implementation Libs.gson
-    implementation Libs.kotlin_std
     implementation Libs.koin_android
     implementation Libs.koin_viewmodel
+    implementation Libs.kotlin_std
     implementation Libs.livedata
     implementation Libs.material
-    implementation Libs.retrofit
     implementation Libs.recycler_view
+    implementation Libs.retrofit
 
     testImplementation TestLibs.core_testing
     testImplementation TestLibs.junit

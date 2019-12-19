@@ -13,4 +13,8 @@ data class Movie(
     val posterImage: String,
     val releaseDate: String,
     val rating: Float
-)
+) {
+    companion object {
+        val EMPTY = Movie(1, "", "", "", "", "", "", "", "", "", "", 0f)
+    }
+}

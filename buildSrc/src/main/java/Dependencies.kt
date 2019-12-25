@@ -23,7 +23,7 @@ object Versions {
     const val coroutines = "1.3.2"
     const val espresso_core = "3.2.0"
     const val fragment_testing = "1.1.0"
-    const val gradle = "4.0.0-alpha01"
+    const val gradle = "4.0.0-alpha07"
     const val gson = "2.8.5"
     const val junit = "4.12"
     const val kakao = "2.1.0"

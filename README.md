@@ -53,5 +53,10 @@ Libraries used in the app:
 
 Here are the experiments with latest libraries/technologies:
 
-* [experiment/jetpack-compose](https://github.com/atabekm/moviessimo/tree/experiment/jetpack-compose) branch: trying to play with [Jetpack Compose](https://developer.android.com/jetpack/compose).
-The library is still in early stages, so only basic text manipulation is covered.
+* [experiment/jetpack-compose](https://github.com/atabekm/moviessimo/tree/experiment/jetpack-compose) 
+branch: trying to play with [Jetpack Compose](https://developer.android.com/jetpack/compose). The 
+library is still in early stages, so only basic text manipulation is covered.
+
+* [experiment/unidirectional-state](https://github.com/atabekm/moviessimo/tree/experiment/unidirectional-state) 
+branch: playing with unidirectional state flow pattern, inspired by the presentation from [Kaushik 
+Gopal](https://github.com/kaushikgopal) at Mobilization IX named [Architecting Android and iOS app features for 2020](https://www.youtube.com/watch?v=BdGVCsHj2vU)

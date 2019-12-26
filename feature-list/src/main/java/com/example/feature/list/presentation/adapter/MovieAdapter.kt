@@ -10,34 +10,27 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.feature.list.R
 import com.example.feature.list.domain.model.Movie
-import com.example.feature.list.navigation.MovieListNavigation
 
-class MovieAdapter(
-    private val navigation: MovieListNavigation
-) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
+class MovieAdapter(private val clickEvent: (Int) -> Unit) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_movie,
-                parent,
-                false
-            )
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), navigation)
+        holder.bind(getItem(position), clickEvent)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: Movie, navigation: MovieListNavigation) {
-            itemView.setOnClickListener {
-                navigation.openMovie(movie.id)
-            }
+        fun bind(movie: Movie, clickEvent: (Int) -> Unit) {
             itemView.findViewById<ImageView>(R.id.itemMovieImage).apply {
                 load(movie.posterImage)
                 tag = movie.posterImage
+                setOnClickListener {
+                    clickEvent(movie.id)
+                }
             }
         }
     }

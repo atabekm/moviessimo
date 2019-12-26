@@ -10,6 +10,7 @@ object Modules {
     const val core_networks = ":core-network"
     const val core_prefs = ":core-prefs"
     const val core_testing = ":core-testing"
+    const val core_usf = ":core-usf"
     const val core_utils = ":core-utils"
     const val feature_details = ":feature-details"
     const val feature_list = ":feature-list"
@@ -36,6 +37,8 @@ object Versions {
     const val navigation = "2.3.4"
     const val recycler_view = "1.1.0"
     const val retrofit = "2.9.0"
+    const val rx_android = "2.1.1"
+    const val rx_java = "2.2.16"
     const val test_core = "1.3.0"
     const val test_ext = "1.1.1"
     const val test_rules = "1.3.0"
@@ -64,6 +67,9 @@ object Libs {
     const val recycler_view = "androidx.recyclerview:recyclerview:${Versions.recycler_view}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofit_gson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    const val retrofit_rx = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
+    const val rx_android = "io.reactivex.rxjava2:rxandroid:${Versions.rx_android}"
+    const val rx_java = "io.reactivex.rxjava2:rxjava:${Versions.rx_java}"
     const val viewmodel_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
 }
 

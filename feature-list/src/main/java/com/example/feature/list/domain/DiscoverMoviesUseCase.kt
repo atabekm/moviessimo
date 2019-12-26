@@ -1,18 +1,19 @@
 package com.example.feature.list.domain
 
-import com.example.core.network.model.NetworkResponse
 import com.example.feature.list.data.MovieListRepository
 import com.example.feature.list.domain.converter.MovieConverter
 import com.example.feature.list.domain.model.Movie
+import io.reactivex.Observable
 
 class DiscoverMoviesUseCase(private val repository: MovieListRepository) {
 
-    suspend operator fun invoke(): NetworkResponse<List<Movie>> {
-        val movieResponse = repository.getDiscoverMovies()
-        return NetworkResponse(
-            isSuccess = movieResponse.isSuccessful,
-            data = movieResponse.body()?.results?.map(MovieConverter::fromDataToDomain) ?: listOf(),
-            error = movieResponse.message()
-        )
+    operator fun invoke(): Observable<List<Movie>> {
+        return repository.getDiscoverMovies()
+            .flatMap {
+                Observable.fromIterable(it.results)
+            }
+            .map(MovieConverter::fromDataToDomain)
+            .toList()
+            .toObservable()
     }
 }

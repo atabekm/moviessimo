@@ -2,13 +2,15 @@ package com.example.feature.list.data
 
 import com.example.feature.list.data.model.DiscoverMovie
 import com.example.feature.list.data.network.ListService
-import retrofit2.Response
+import io.reactivex.Observable
 
 interface MovieListRepository {
-    suspend fun getDiscoverMovies(): Response<DiscoverMovie>
+    fun getDiscoverMovies(): Observable<DiscoverMovie>
 }
 
 class MovieListRepositoryImpl(private val listService: ListService) : MovieListRepository {
 
-    override suspend fun getDiscoverMovies() = listService.getMovieList()
+    override fun getDiscoverMovies(): Observable<DiscoverMovie> {
+        return listService.getMovieList()
+    }
 }

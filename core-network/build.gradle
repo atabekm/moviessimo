@@ -29,5 +29,6 @@ dependencies {
     implementation Libs.kotlin_std
     implementation Libs.retrofit
     implementation Libs.retrofit_gson
+    implementation Libs.retrofit_rx
     implementation Libs.okhttp_logging
 }

@@ -35,6 +35,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 
 dependencies {
     implementation project(Modules.core_networks)
+    implementation project(Modules.core_usf)
     implementation project(Modules.core_utils)
 
     implementation Libs.appcompat
@@ -47,6 +48,8 @@ dependencies {
     implementation Libs.livedata
     implementation Libs.material
     implementation Libs.retrofit
+    implementation Libs.rx_android
+    implementation Libs.rx_java
     implementation Libs.recycler_view
 
     testImplementation TestLibs.core_testing

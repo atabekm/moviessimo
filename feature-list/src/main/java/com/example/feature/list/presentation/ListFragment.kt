@@ -13,13 +13,19 @@ import com.example.feature.list.databinding.FragmentListBinding
 import com.example.feature.list.navigation.MovieListNavigation
 import com.example.feature.list.presentation.adapter.MovieAdapter
 import com.google.android.material.snackbar.Snackbar
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
     private val listViewModel: ListViewModel by viewModel()
     private val navigation: MovieListNavigation by inject()
-    private val adapter = MovieAdapter(navigation)
+    private val adapter = MovieAdapter {
+        viewModel.processInput(ListViewEvent.MovieClickEvent(it))
+    }
+
+    private var disposables: CompositeDisposable = CompositeDisposable()
 
     private var _binding: FragmentListBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
@@ -29,7 +35,21 @@ class ListFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        listViewModel.requestMovies()
+        disposables.add(
+            viewModel
+                .viewState
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::render) { println("something went terribly wrong processing view state $it") }
+        )
+
+        disposables.add(
+            viewModel
+                .viewEffect
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::trigger) { println("something went terribly wrong processing view effects $it") }
+        )
+
+        viewModel.processInput(ListViewEvent.MovieLoadEvent)
     }
 
     override fun onCreateView(
@@ -47,21 +67,25 @@ class ListFragment : Fragment() {
         activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(), R.color.colorPrimaryDark)
 
         binding.movieRecycler.adapter = adapter
-        listViewModel.movies.observe(viewLifecycleOwner) { result ->
-            when (result.status) {
-                Status.LOADING -> {
-                    binding.movieProgress.isVisible = true
+    }
+
+    private fun render(viewState: ListViewState) {
+        binding.movieProgress.isVisible = viewState.isLoading
+        adapter.submitList(viewState.movieList)
+        if (viewState.errorMessage.isNotEmpty()) {
+            Snackbar.make(binding.movieRecycler, viewState.errorMessage, Snackbar.LENGTH_INDEFINITE)
+                .setAction(getString(R.string.retry)) {
+                    viewModel.processInput(ListViewEvent.MovieRetryEvent)
                 }
-                Status.SUCCESS -> {
-                    binding.movieProgress.isVisible = false
-                    adapter.submitList(result.data)
-                }
-                Status.ERROR -> {
-                    binding.movieProgress.isVisible = false
-                    Snackbar.make(binding.movieRecycler, result.message, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(getString(R.string.retry)) { listViewModel.requestMovies() }
-                        .show()
-                }
+                .show()
+        }
+    }
+
+    private fun trigger(effect: ListViewEffect?) {
+        effect ?: return
+        when (effect) {
+            is ListViewEffect.MovieClickEffect -> {
+                navigation.openMovie(effect.movieId)
             }
         }
     }

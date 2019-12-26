@@ -5,8 +5,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+import retrofit2.CallAdapter
 import retrofit2.Converter
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object CoreNetwork {
@@ -18,6 +20,7 @@ object CoreNetwork {
 
     val module = module {
         factory<Converter.Factory> { GsonConverterFactory.create() }
+        factory<CallAdapter.Factory> { RxJava2CallAdapterFactory.create() }
         factory<Interceptor>(named(LOGGING_INTERCEPTOR)) {
             HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
@@ -48,6 +51,7 @@ object CoreNetwork {
             Retrofit.Builder()
                 .baseUrl(getProperty(BASE_URL))
                 .client(get())
+                .addCallAdapterFactory(get())
                 .addConverterFactory(get())
                 .build()
         }

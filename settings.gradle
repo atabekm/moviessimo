@@ -1,6 +1,7 @@
 include ':app'
 include ':core-network'
 include ':core-prefs'
+include ':core-usf'
 include ':core-utils'
 include ':feature-list'
 include ':feature-details'

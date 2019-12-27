@@ -6,7 +6,8 @@ import io.reactivex.Observable
 import io.reactivex.disposables.Disposable
 import io.reactivex.subjects.PublishSubject
 
-abstract class UsfViewModel<E: ViewEvent, R: ViewResult, S: ViewState, F: ViewEffect> : ViewModel() {
+abstract class UsfViewModel<E : ViewEvent, R : ViewResult, S : ViewState, F : ViewEffect> :
+    ViewModel() {
     private val eventEmitter: PublishSubject<E> = PublishSubject.create()
 
     private lateinit var disposable: Disposable

@@ -13,8 +13,11 @@ import androidx.fragment.app.Fragment
 import coil.api.load
 import com.example.core.network.model.Status
 import com.example.feature.details.databinding.FragmentDetailsBinding
+import com.example.feature.details.R
 import com.example.feature.details.navigation.MovieDetailsNavigation
 import com.google.android.material.appbar.AppBarLayout
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
@@ -25,6 +28,7 @@ class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var movieId = 0
     private var isPosterShown = true
     private var maxScrollSize = 0.0
+    private var disposables: CompositeDisposable = CompositeDisposable()
 
     private var _binding: FragmentDetailsBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
@@ -41,10 +45,24 @@ class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
 
         activity?.window?.statusBarColor = Color.TRANSPARENT
 
+        disposables.add(
+            viewModel
+                .viewState
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::render) { println("something went terribly wrong processing view state $it") }
+        )
+
+        disposables.add(
+            viewModel
+                .viewEffect
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::trigger) { println("something went terribly wrong processing view effects $it") }
+        )
+
         arguments?.apply {
             movieId = getInt("movie_id")
         }
-        viewModel.getMovieDetails(movieId)
+        viewModel.processInput(DetailViewEvent.MovieLoadEvent(movieId))
     }
 
     override fun onCreateView(
@@ -59,7 +77,7 @@ class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // This if condition is only to avoid the block to executed in instrumentation tests
+        // This if condition is only to avoid the block to be executed in instrumentation tests
         if (activity is AppCompatActivity) {
             (activity as AppCompatActivity).apply {
                 setSupportActionBar(binding.detailToolbar)
@@ -68,37 +86,7 @@ class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         }
 
         binding.detailToolbar.setNavigationOnClickListener {
-            navigation.goToMovieList()
-        }
-
-        viewModel.movie.observe(viewLifecycleOwner) { result ->
-            when (result.status) {
-                Status.LOADING -> {
-                    binding.detailRoot.isInvisible = true
-                    binding.detailProgress.isVisible = true
-                }
-                Status.SUCCESS -> {
-                    result.data?.apply {
-                        binding.detailProgress.isVisible = false
-                        binding.detailCollapsingToolbar.title = title
-                        binding.detailBackdrop.load(backdropImage)
-                        binding.detailPoster.load(posterImage)
-                        binding.detailGenres.text = genres
-                        binding.detailDuration.text = duration
-                        binding.detailRating.rating = rating
-                        binding.detailOverview.text = overview
-                        binding.detailDirector.text = director
-                        binding.detailScreenplayCaption.isVisible = screenplay.isNotEmpty()
-                        binding.detailScreenplay.text = screenplay
-                        binding.detailCasting.text = cast
-                    }
-                    binding.detailRoot.isInvisible = false
-                }
-                Status.ERROR -> {
-                    binding.detailProgress.isVisible = false
-                    binding.detailRoot.isInvisible = true
-                }
-            }
+            viewModel.processInput(DetailViewEvent.MovieBackClickEvent)
         }
     }
 
@@ -125,6 +113,33 @@ class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
         } else if (scrollRatio <= RATIO_TO_ANIMATE_POSTER && !isPosterShown) {
             isPosterShown = true
             animateView(binding.detailPoster, true)
+        }
+    }
+
+    private fun render(viewState: DetailViewState) {
+        with(binding) {
+            detailProgress.isVisible = viewState.isLoading
+            detailCollapsingToolbar.title = viewState.movie.title
+            detailBackdrop.load(viewState.movie.backdropImage)
+            detailPoster.load(viewState.movie.posterImage)
+            detailGenres.text = viewState.movie.genres
+            detailDuration.text = viewState.movie.duration
+            detailRating.rating = viewState.movie.rating
+            detailOverview.text = viewState.movie.overview
+            detailDirector.text = viewState.movie.director
+            detailScreenplayCaption.isVisible = viewState.movie.screenplay.isNotEmpty()
+            detailScreenplay.text = viewState.movie.screenplay
+            detailCasting.text = viewState.movie.cast
+            detailRoot.isInvisible = viewState.isLoading
+        }
+    }
+
+    private fun trigger(effect: DetailViewEffect?) {
+        effect ?: return
+        when (effect) {
+            is DetailViewEffect.MovieBackClickEffect -> {
+                navigation.goToMovieList()
+            }
         }
     }
 

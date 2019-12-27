@@ -11,7 +11,8 @@ import coil.api.load
 import com.example.feature.list.R
 import com.example.feature.list.domain.model.Movie
 
-class MovieAdapter(private val clickEvent: (Int) -> Unit) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
+class MovieAdapter(private val clickEvent: (Int) -> Unit) :
+    ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

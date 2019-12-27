@@ -14,7 +14,8 @@ class ListViewModel(
 ) : UsfViewModel<ListViewEvent, ListViewResult, ListViewState, ListViewEffect>() {
     private val _movies = MutableLiveData<Resource<List<Movie>>>()
 
-    override fun convertEventToResult(e: Observable<ListViewEvent>): Observable<Resource<ListViewResult>> {
+    override fun convertEventToResult(e: Observable<ListViewEvent>):
+        Observable<Resource<ListViewResult>> {
         return Observable.merge(
             e.ofType(ListViewEvent.MovieLoadEvent::class.java).onMovieLoad(),
             e.ofType(ListViewEvent.MovieRetryEvent::class.java).onMovieRetry(),
@@ -22,7 +23,8 @@ class ListViewModel(
         )
     }
 
-    override fun convertResultToViewState(r: Observable<Resource<ListViewResult>>): Observable<ListViewState> {
+    override fun convertResultToViewState(r: Observable<Resource<ListViewResult>>):
+        Observable<ListViewState> {
         return r.scan(ListViewState()) { vs, result ->
             when (result.status) {
                 Status.LOADING -> {
@@ -63,7 +65,8 @@ class ListViewModel(
             }
     }
 
-    private fun Observable<ListViewEvent.MovieLoadEvent>.onMovieLoad(): Observable<Resource<ListViewResult.MovieLoadResult>> {
+    private fun Observable<ListViewEvent.MovieLoadEvent>.onMovieLoad():
+        Observable<Resource<ListViewResult.MovieLoadResult>> {
         return switchMap {
             useCase()
                 .subscribeOn(Schedulers.io())
@@ -77,7 +80,8 @@ class ListViewModel(
         }
     }
 
-    private fun Observable<ListViewEvent.MovieRetryEvent>.onMovieRetry(): Observable<Resource<ListViewResult.MovieRetryResult>> {
+    private fun Observable<ListViewEvent.MovieRetryEvent>.onMovieRetry():
+        Observable<Resource<ListViewResult.MovieRetryResult>> {
         return switchMap {
             useCase()
                 .subscribeOn(Schedulers.io())
@@ -91,7 +95,8 @@ class ListViewModel(
         }
     }
 
-    private fun Observable<ListViewEvent.MovieClickEvent>.onMovieClick(): Observable<Resource<ListViewResult.MovieClickResult>> {
+    private fun Observable<ListViewEvent.MovieClickEvent>.onMovieClick():
+        Observable<Resource<ListViewResult.MovieClickResult>> {
         return map { Resource.success(ListViewResult.MovieClickResult(it.movieId)) }
     }
 }

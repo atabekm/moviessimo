@@ -1,73 +1,128 @@
 package com.example.feature.list.presentation
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.core.network.model.NetworkResponse
-import com.example.core.network.model.Status
+import com.example.core.utils.scheduler.TestSchedulers
 import com.example.feature.list.domain.DiscoverMoviesUseCase
 import com.example.feature.list.domain.model.Movie
-import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
+import io.reactivex.Observable
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
 
 class ListViewModelTest {
     private val useCaseMock = mockk<DiscoverMoviesUseCase>()
-    private val viewModel = ListViewModel(useCaseMock, Dispatchers.Unconfined)
-    private val movieDomain = Movie(1, "https://image.tmdb.org/t/p/w185/path")
+    private val viewModel = ListViewModel(useCaseMock, TestSchedulers())
+    private val movieId = 1
+    private val movieDomain = Movie(movieId, "https://image.tmdb.org/t/p/w185/path")
     private val errorMessage = "error message"
 
     @get:Rule
     var rule = InstantTaskExecutorRule()
 
     @Test
-    fun `verify ListViewModel's requestMovies success scenario`() {
-        // given
-        coEvery { useCaseMock.invoke() } returns NetworkResponse(true, listOf(movieDomain), "")
-
+    fun `verify subscribing receives starting state`() {
         // when
-        runBlocking {
-            viewModel.requestMovies()
-        }
+        val state = viewModel.viewState.test()
 
         // then
-        val result = viewModel.movies.value!!
-        assertEquals(Status.SUCCESS, result.status)
-        assertEquals(listOf(movieDomain), result.data)
+        state.assertNoErrors()
+        state.assertValueCount(1)
+        state.assertValue(ListViewState())
     }
 
     @Test
-    fun `verify ListViewModel's requestMovies failure scenario`() {
+    fun `verify MovieLoadEvent returns correct state given use case returns list of movies`() {
         // given
-        coEvery { useCaseMock.invoke() } returns NetworkResponse(false, listOf(), errorMessage)
+        every { useCaseMock.invoke() } returns Observable.just(listOf(movieDomain))
 
         // when
-        runBlocking {
-            viewModel.requestMovies()
-        }
+        val state = viewModel.viewState.test()
+        val effect = viewModel.viewEffect.test()
+        viewModel.processInput(ListViewEvent.MovieLoadEvent)
 
         // then
-        val result = viewModel.movies.value!!
-        assertEquals(Status.ERROR, result.status)
-        assertEquals("Failed to load movies: $errorMessage", result.message)
+        state.assertNoErrors()
+        state.assertValueCount(3)
+        state.assertValueAt(0, ListViewState())
+        state.assertValueAt(1, ListViewState(isLoading = true))
+        state.assertValueAt(2, ListViewState(isLoading = false, movieList = listOf(movieDomain)))
+        effect.assertNoErrors()
+        effect.assertNoValues()
     }
 
     @Test
-    fun `verify ListViewModel's requestMovies error scenario`() {
+    fun `verify MovieLoadEvent returns correct state given use case returns error`() {
         // given
-        coEvery { useCaseMock.invoke() } throws IOException()
+        every { useCaseMock.invoke() } returns Observable.error(Throwable(errorMessage))
 
         // when
-        runBlocking {
-            viewModel.requestMovies()
-        }
+        val state = viewModel.viewState.test()
+        val effect = viewModel.viewEffect.test()
+        viewModel.processInput(ListViewEvent.MovieLoadEvent)
 
         // then
-        val result = viewModel.movies.value!!
-        assertEquals(Status.ERROR, result.status)
-        assertEquals("Failed to load movies: null", result.message)
+        state.assertNoErrors()
+        state.assertValueCount(3)
+        state.assertValueAt(0, ListViewState())
+        state.assertValueAt(1, ListViewState(isLoading = true))
+        state.assertValueAt(2, ListViewState(isLoading = false, errorMessage = errorMessage))
+        effect.assertNoErrors()
+        effect.assertNoValues()
+    }
+
+    @Test
+    fun `verify MovieRetryEvent returns correct state given use case returns list of movies`() {
+        // given
+        every { useCaseMock.invoke() } returns Observable.just(listOf(movieDomain))
+
+        // when
+        val state = viewModel.viewState.test()
+        val effect = viewModel.viewEffect.test()
+        viewModel.processInput(ListViewEvent.MovieRetryEvent)
+
+        // then
+        state.assertNoErrors()
+        state.assertValueCount(3)
+        state.assertValueAt(0, ListViewState())
+        state.assertValueAt(1, ListViewState(isLoading = true))
+        state.assertValueAt(2, ListViewState(isLoading = false, movieList = listOf(movieDomain)))
+        effect.assertNoErrors()
+        effect.assertNoValues()
+    }
+
+    @Test
+    fun `verify MovieRetryEvent returns correct state given use case returns error`() {
+        // given
+        every { useCaseMock.invoke() } returns Observable.error(Throwable(errorMessage))
+
+        // when
+        val state = viewModel.viewState.test()
+        val effect = viewModel.viewEffect.test()
+        viewModel.processInput(ListViewEvent.MovieRetryEvent)
+
+        // then
+        state.assertNoErrors()
+        state.assertValueCount(3)
+        state.assertValueAt(0, ListViewState())
+        state.assertValueAt(1, ListViewState(isLoading = true))
+        state.assertValueAt(2, ListViewState(isLoading = false, errorMessage = errorMessage))
+        effect.assertNoErrors()
+        effect.assertNoValues()
+    }
+
+    @Test
+    fun `verify MovieClickEvent returns correct effect`() {
+        // when
+        val state = viewModel.viewState.test()
+        val effect = viewModel.viewEffect.test()
+        viewModel.processInput(ListViewEvent.MovieClickEvent(movieId))
+
+        // then
+        state.assertNoErrors()
+        state.assertValueCount(1)
+        effect.assertNoErrors()
+        effect.assertValueCount(1)
+        effect.assertValue(ListViewEffect.MovieClickEffect(movieId))
     }
 }

@@ -5,10 +5,10 @@ import com.example.core.network.model.Status
 import com.example.core.usf.UsfViewModel
 import com.example.feature.details.domain.GetMovieByIdUseCase
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 
 class DetailsViewModel(
-    private val useCase: GetMovieByIdUseCase
+    private val useCase: GetMovieByIdUseCase,
+    private val schedulers: com.example.core.utils.scheduler.Schedulers
 ) : UsfViewModel<DetailViewEvent, DetailViewResult, DetailViewState, DetailViewEffect>() {
 
     override fun convertEventToResult(e: Observable<DetailViewEvent>): Observable<Resource<DetailViewResult>> {
@@ -56,7 +56,7 @@ class DetailsViewModel(
         Observable<Resource<DetailViewResult.MovieLoadResult>> {
         return switchMap { event ->
             useCase(event.movieId)
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(schedulers.io())
                 .map {
                     Resource.success(DetailViewResult.MovieLoadResult(it))
                 }

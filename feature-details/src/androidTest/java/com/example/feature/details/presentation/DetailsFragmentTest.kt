@@ -7,6 +7,8 @@ import coil.Coil
 import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.example.core.utils.TestImageLoader
+import com.example.core.utils.scheduler.AppSchedulers
+import com.example.core.utils.scheduler.Schedulers
 import com.example.feature.details.R
 import com.example.feature.details.data.MovieDetailRepository
 import com.example.feature.details.domain.GetMovieByIdUseCase
@@ -14,9 +16,9 @@ import com.example.feature.details.domain.model.TestData.movieData
 import com.example.feature.details.domain.model.TestData.movieDomain
 import com.example.feature.details.kakao.hasAlpha
 import com.example.feature.details.navigation.MovieDetailsNavigation
-import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
+import io.reactivex.Observable
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -26,7 +28,6 @@ import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
-import retrofit2.Response
 
 @RunWith(AndroidJUnit4::class)
 class DetailsFragmentTest : KoinTest {
@@ -42,7 +43,8 @@ class DetailsFragmentTest : KoinTest {
                     factory { movieDetailsNavigation }
                     factory { repository }
                     factory { GetMovieByIdUseCase(get()) }
-                    viewModel { DetailsViewModel(get(), Dispatchers.Main) }
+                    factory<Schedulers> { AppSchedulers() }
+                    viewModel { DetailsViewModel(get(), get()) }
                 }
             )
         }
@@ -59,7 +61,7 @@ class DetailsFragmentTest : KoinTest {
 
     @Test
     fun verifyMovieDetailsIsPopulated_givenValidData() {
-        coEvery { repository.getMovieDetails(movieId) } returns Response.success(movieData)
+        every { repository.getMovieDetails(movieId) } returns Observable.just(movieData)
 
         launchFragmentInContainer<DetailsFragment>(Bundle().apply {
             putInt("movie_id", movieId)

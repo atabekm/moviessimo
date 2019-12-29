@@ -11,9 +11,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import coil.api.load
-import com.example.core.network.model.Status
 import com.example.feature.details.databinding.FragmentDetailsBinding
-import com.example.feature.details.R
 import com.example.feature.details.navigation.MovieDetailsNavigation
 import com.google.android.material.appbar.AppBarLayout
 import io.reactivex.android.schedulers.AndroidSchedulers

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.example.core.network.model.Status
 import com.example.feature.list.R
 import com.example.feature.list.databinding.FragmentListBinding
 import com.example.feature.list.navigation.MovieListNavigation
@@ -19,7 +18,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListFragment : Fragment() {
-    private val listViewModel: ListViewModel by viewModel()
+    private val viewModel: ListViewModel by viewModel()
     private val navigation: MovieListNavigation by inject()
     private val adapter = MovieAdapter {
         viewModel.processInput(ListViewEvent.MovieClickEvent(it))

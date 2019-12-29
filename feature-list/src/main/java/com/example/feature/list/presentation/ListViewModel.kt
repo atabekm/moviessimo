@@ -1,18 +1,15 @@
 package com.example.feature.list.presentation
 
-import androidx.lifecycle.MutableLiveData
 import com.example.core.network.model.Resource
 import com.example.core.network.model.Status
 import com.example.core.usf.UsfViewModel
 import com.example.feature.list.domain.DiscoverMoviesUseCase
-import com.example.feature.list.domain.model.Movie
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 
 class ListViewModel(
-    private val useCase: DiscoverMoviesUseCase
+    private val useCase: DiscoverMoviesUseCase,
+    private val schedulers: com.example.core.utils.scheduler.Schedulers
 ) : UsfViewModel<ListViewEvent, ListViewResult, ListViewState, ListViewEffect>() {
-    private val _movies = MutableLiveData<Resource<List<Movie>>>()
 
     override fun convertEventToResult(e: Observable<ListViewEvent>):
         Observable<Resource<ListViewResult>> {
@@ -69,7 +66,7 @@ class ListViewModel(
         Observable<Resource<ListViewResult.MovieLoadResult>> {
         return switchMap {
             useCase()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(schedulers.io())
                 .map {
                     Resource.success(ListViewResult.MovieLoadResult(it))
                 }
@@ -84,7 +81,7 @@ class ListViewModel(
         Observable<Resource<ListViewResult.MovieRetryResult>> {
         return switchMap {
             useCase()
-                .subscribeOn(Schedulers.io())
+                .subscribeOn(schedulers.io())
                 .map {
                     Resource.success(ListViewResult.MovieRetryResult(it))
                 }

@@ -2,6 +2,8 @@ package com.example.feature.list.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.core.network.model.Resource
 import com.example.core.utils.CoroutineViewModel
 import com.example.feature.list.domain.DiscoverMoviesUseCase
@@ -14,14 +16,14 @@ import java.io.IOException
 class ListViewModel(
     private val useCase: DiscoverMoviesUseCase,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : CoroutineViewModel() {
+) : ViewModel() {
     private val _movies = MutableLiveData<Resource<List<Movie>>>()
 
     val movies: LiveData<Resource<List<Movie>>> = _movies
 
     fun requestMovies() {
         _movies.postValue(Resource.loading())
-        launch(dispatcher) {
+        viewModelScope.launch(dispatcher) {
             try {
                 val result = useCase()
 

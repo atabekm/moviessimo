@@ -2,6 +2,8 @@ package com.example.feature.details.presentation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.core.network.model.Resource
 import com.example.core.utils.CoroutineViewModel
 import com.example.feature.details.domain.GetMovieByIdUseCase
@@ -14,14 +16,14 @@ import java.io.IOException
 class DetailsViewModel(
     private val useCase: GetMovieByIdUseCase,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : CoroutineViewModel() {
+) : ViewModel() {
     private val _movie = MutableLiveData<Resource<Movie>>()
 
     val movie: LiveData<Resource<Movie>> = _movie
 
     fun getMovieDetails(movieId: Int) {
         _movie.postValue(Resource.loading())
-        launch(dispatcher) {
+        viewModelScope.launch(dispatcher) {
             try {
                 val result = useCase(movieId)
 

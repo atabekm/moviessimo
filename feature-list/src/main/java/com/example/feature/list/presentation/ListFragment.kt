@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(R.layout.fragment_list) {
     private val listViewModel: ListViewModel by viewModel()
     private val navigation: MovieListNavigation by inject()
     private val adapter = MovieAdapter(navigation)
@@ -26,14 +26,6 @@ class ListFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         listViewModel.requestMovies()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

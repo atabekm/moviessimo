@@ -21,7 +21,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
-class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
+class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffsetChangedListener {
     private val viewModel: DetailsViewModel by viewModel()
     private val navigation: MovieDetailsNavigation by inject()
     private var movieId = 0
@@ -42,14 +42,6 @@ class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
             movieId = getInt("movie_id")
         }
         viewModel.getMovieDetails(movieId)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_details, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

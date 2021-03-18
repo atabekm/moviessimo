@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.network.model.Resource
-import com.example.core.utils.CoroutineViewModel
 import com.example.feature.details.domain.GetMovieByIdUseCase
 import com.example.feature.details.domain.model.Movie
 import kotlinx.coroutines.CoroutineDispatcher

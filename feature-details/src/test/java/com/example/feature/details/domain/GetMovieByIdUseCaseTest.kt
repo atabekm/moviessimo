@@ -8,6 +8,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import okhttp3.internal.http.RealResponseBody
+import okio.Buffer
 import org.junit.Assert
 import org.junit.Test
 import retrofit2.Response
@@ -16,7 +17,7 @@ class GetMovieByIdUseCaseTest {
     private val repositoryMock = mockk<MovieDetailRepository>()
     private val responseSuccess: Response<Movie> = Response.success(movieData)
     private val responseError: Response<Movie> =
-        Response.error(400, RealResponseBody("type", 0, null))
+        Response.error(400, RealResponseBody("type", 0, Buffer()))
     private val useCase = GetMovieByIdUseCase(repositoryMock)
     private val movieId = 123
 

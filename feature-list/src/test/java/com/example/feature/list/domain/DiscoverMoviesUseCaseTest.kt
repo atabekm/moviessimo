@@ -7,6 +7,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
 import okhttp3.internal.http.RealResponseBody
+import okio.Buffer
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.Response
@@ -19,7 +20,7 @@ class DiscoverMoviesUseCaseTest {
     private val discoverMovie = DiscoverMovie(1, listOf(movieData), 0, 0)
     private val responseSuccess: Response<DiscoverMovie> = Response.success(discoverMovie)
     private val responseError: Response<DiscoverMovie> =
-        Response.error(400, RealResponseBody("type", 0, null))
+        Response.error(400, RealResponseBody("type", 0, Buffer()))
     private val useCase = DiscoverMoviesUseCase(repositoryMock)
 
     @Test

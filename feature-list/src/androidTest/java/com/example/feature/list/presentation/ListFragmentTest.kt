@@ -18,6 +18,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import okhttp3.internal.http.RealResponseBody
+import okio.Buffer
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -100,7 +101,7 @@ class ListFragmentTest : KoinTest {
 
     @Test
     fun verifyMovieListIsEmpty_givenNoData_thenRetry() {
-        coEvery { repository.getDiscoverMovies() } returns Response.error(400, RealResponseBody("type", 0, null))
+        coEvery { repository.getDiscoverMovies() } returns Response.error(400, RealResponseBody("type", 0, Buffer()))
 
         launchFragmentInContainer<ListFragment>(Bundle(), R.style.Theme_AppCompat_Light_NoActionBar)
 

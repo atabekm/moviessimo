@@ -3,6 +3,7 @@ package com.example.feature.list.presentation.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +11,6 @@ import coil.api.load
 import com.example.feature.list.R
 import com.example.feature.list.domain.model.Movie
 import com.example.feature.list.navigation.MovieListNavigation
-import kotlinx.android.synthetic.main.item_movie.view.*
 
 class MovieAdapter(
     private val navigation: MovieListNavigation
@@ -35,8 +35,10 @@ class MovieAdapter(
             itemView.setOnClickListener {
                 navigation.openMovie(movie.id)
             }
-            itemView.itemMovieImage.load(movie.posterImage)
-            itemView.itemMovieImage.tag = movie.posterImage
+            itemView.findViewById<ImageView>(R.id.itemMovieImage).apply {
+                load(movie.posterImage)
+                tag = movie.posterImage
+            }
         }
     }
 }

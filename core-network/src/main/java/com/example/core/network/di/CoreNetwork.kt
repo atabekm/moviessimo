@@ -25,9 +25,9 @@ object CoreNetwork {
         }
         factory(named(QUERY_INTERCEPTOR)) {
             Interceptor { chain ->
-                val newUrl = chain.request().url()
+                val newUrl = chain.request().url
                     .newBuilder()
-                    .addQueryParameter(API_KEY, getProperty<String>(API_KEY))
+                    .addQueryParameter(API_KEY, getProperty(API_KEY))
                     .build()
                 val newRequest = chain.request()
                     .newBuilder()
@@ -38,15 +38,15 @@ object CoreNetwork {
         }
         factory {
             OkHttpClient.Builder().apply {
-                if (getProperty(IS_DEBUG)) {
-                    addInterceptor(get(named(LOGGING_INTERCEPTOR)))
+                if (getProperty(IS_DEBUG) == "true") {
+                    addInterceptor(get<Interceptor>(named(LOGGING_INTERCEPTOR)))
                 }
-                addInterceptor(get(named(QUERY_INTERCEPTOR)))
+                addInterceptor(get<Interceptor>(named(QUERY_INTERCEPTOR)))
             }.build()
         }
         single {
             Retrofit.Builder()
-                .baseUrl(getProperty<String>(BASE_URL))
+                .baseUrl(getProperty(BASE_URL))
                 .client(get())
                 .addConverterFactory(get())
                 .build()

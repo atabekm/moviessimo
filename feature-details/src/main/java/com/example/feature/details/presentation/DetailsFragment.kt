@@ -10,23 +10,26 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import coil.api.load
 import com.example.core.network.model.Status
-import com.example.feature.details.R
+import com.example.feature.details.databinding.FragmentDetailsBinding
 import com.example.feature.details.navigation.MovieDetailsNavigation
 import com.google.android.material.appbar.AppBarLayout
-import kotlinx.android.synthetic.main.fragment_details.*
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.abs
 
-class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffsetChangedListener {
+class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private val viewModel: DetailsViewModel by viewModel()
     private val navigation: MovieDetailsNavigation by inject()
     private var movieId = 0
     private var isPosterShown = true
     private var maxScrollSize = 0.0
+
+    private var _binding: FragmentDetailsBinding? = null
+    // This property is only valid between onCreateView and onDestroyView.
+    private val binding
+        get() = _binding!!
 
     companion object {
         const val POSTER_ANIMATION_DURATION = 200L
@@ -44,60 +47,68 @@ class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffs
         viewModel.getMovieDetails(movieId)
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         // This if condition is only to avoid the block to executed in instrumentation tests
         if (activity is AppCompatActivity) {
             (activity as AppCompatActivity).apply {
-                setSupportActionBar(detailToolbar)
+                setSupportActionBar(binding.detailToolbar)
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
             }
         }
 
-        detailToolbar.setNavigationOnClickListener {
+        binding.detailToolbar.setNavigationOnClickListener {
             navigation.goToMovieList()
         }
 
-        viewModel.movie.observe(viewLifecycleOwner, Observer { result ->
+        viewModel.movie.observe(viewLifecycleOwner) { result ->
             when (result.status) {
                 Status.LOADING -> {
-                    detailRoot.isInvisible = true
-                    detailProgress.isVisible = true
+                    binding.detailRoot.isInvisible = true
+                    binding.detailProgress.isVisible = true
                 }
                 Status.SUCCESS -> {
                     result.data?.apply {
-                        detailProgress.isVisible = false
-                        detailCollapsingToolbar.title = title
-
-                        detailBackdrop.load(backdropImage)
-                        detailPoster.load(posterImage)
-                        detailGenres.text = genres
-                        detailDuration.text = duration
-                        detailRating.rating = rating
-                        detailOverview.text = overview
-                        detailDirector.text = director
-                        detailScreenplayCaption.isVisible = screenplay.isNotEmpty()
-                        detailScreenplay.text = screenplay
-                        detailCasting.text = cast
+                        binding.detailProgress.isVisible = false
+                        binding.detailCollapsingToolbar.title = title
+                        binding.detailBackdrop.load(backdropImage)
+                        binding.detailPoster.load(posterImage)
+                        binding.detailGenres.text = genres
+                        binding.detailDuration.text = duration
+                        binding.detailRating.rating = rating
+                        binding.detailOverview.text = overview
+                        binding.detailDirector.text = director
+                        binding.detailScreenplayCaption.isVisible = screenplay.isNotEmpty()
+                        binding.detailScreenplay.text = screenplay
+                        binding.detailCasting.text = cast
                     }
-                    detailRoot.isInvisible = false
+                    binding.detailRoot.isInvisible = false
                 }
                 Status.ERROR -> {
-                    detailProgress.isVisible = false
-                    detailRoot.isInvisible = true
+                    binding.detailProgress.isVisible = false
+                    binding.detailRoot.isInvisible = true
                 }
             }
-        })
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        detailAppbar.addOnOffsetChangedListener(this)
+        binding.detailAppbar.addOnOffsetChangedListener(this)
     }
 
     override fun onPause() {
-        detailAppbar.removeOnOffsetChangedListener(this)
+        binding.detailAppbar.removeOnOffsetChangedListener(this)
         super.onPause()
     }
 
@@ -109,11 +120,11 @@ class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffs
 
         if (scrollRatio >= RATIO_TO_ANIMATE_POSTER && isPosterShown) {
             isPosterShown = false
-            ViewCompat.animate(detailPoster)
-            animateView(detailPoster, false)
+            ViewCompat.animate(binding.detailPoster)
+            animateView(binding.detailPoster, false)
         } else if (scrollRatio <= RATIO_TO_ANIMATE_POSTER && !isPosterShown) {
             isPosterShown = true
-            animateView(detailPoster, true)
+            animateView(binding.detailPoster, true)
         }
     }
 

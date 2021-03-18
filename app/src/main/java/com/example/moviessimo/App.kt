@@ -19,7 +19,7 @@ class App : Application() {
             androidLogger()
             androidContext(this@App)
             properties(mapOf(
-                "is_debug" to BuildConfig.DEBUG,
+                "is_debug" to BuildConfig.DEBUG.toString(),
                 "api_key" to BuildConfig.API_KEY
             ))
             fileProperties()

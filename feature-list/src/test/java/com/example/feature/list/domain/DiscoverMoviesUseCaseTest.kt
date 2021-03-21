@@ -1,8 +1,8 @@
 package com.example.feature.list.domain
 
-import com.example.feature.list.data.MovieListRepository
 import com.example.feature.list.data.model.DiscoverMovie
 import com.example.feature.list.data.model.Movie
+import com.example.feature.list.domain.repository.MovieListRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking

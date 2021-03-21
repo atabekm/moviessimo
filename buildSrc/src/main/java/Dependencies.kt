@@ -20,7 +20,7 @@ object Versions {
     const val coil = "0.7.0"
     const val constraint_layout = "2.0.4"
     const val core_testing = "2.1.0"
-    const val coroutines = "1.3.9"
+    const val coroutines = "1.4.2"
     const val espresso_core = "3.2.0"
     const val fragment_testing = "1.3.1"
     const val gradle = "4.1.3"

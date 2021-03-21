@@ -13,7 +13,7 @@ class MovieConverterTest {
 
     @Test
     fun `verify movie conversion with valid input`() {
-        val result = MovieConverter.fromDataToDomain(movieData)
+        val result = movieData.toDomain()
         assertEquals(movieData.id, result.id)
         assertEquals(movieData.title, result.title)
         assertEquals(movieData.overview, result.overview)
@@ -33,8 +33,7 @@ class MovieConverterTest {
 
     @Test
     fun `verify movie conversion with invalid input`() {
-        val result = MovieConverter.fromDataToDomain(
-            movieData.copy(
+        val result = movieData.copy(
                 id = null,
                 title = null,
                 overview = null,
@@ -45,8 +44,7 @@ class MovieConverterTest {
                 posterPath = null,
                 releaseDate = null,
                 voteAverage = null
-            )
-        )
+            ).toDomain()
         assertEquals(0, result.id)
         assertEquals("", result.title)
         assertEquals("", result.overview)

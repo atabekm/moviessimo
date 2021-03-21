@@ -9,7 +9,7 @@ class MovieConverterTest {
 
     @Test
     fun `verify movie conversion works`() {
-        val movieDomain = MovieConverter.fromDataToDomain(movieData)
+        val movieDomain = movieData.toDomain()
         assertEquals(movieData.id, movieDomain.id)
         assertEquals(
             "https://image.tmdb.org/t/p/w185${movieData.posterPath}",

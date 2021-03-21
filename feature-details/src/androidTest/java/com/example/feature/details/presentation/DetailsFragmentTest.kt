@@ -8,10 +8,10 @@ import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.example.core.utils.TestImageLoader
 import com.example.feature.details.R
-import com.example.feature.details.data.MovieDetailRepository
 import com.example.feature.details.domain.GetMovieByIdUseCase
 import com.example.feature.details.domain.model.TestData.movieData
 import com.example.feature.details.domain.model.TestData.movieDomain
+import com.example.feature.details.domain.repository.MovieDetailRepository
 import com.example.feature.details.kakao.hasAlpha
 import com.example.feature.details.navigation.MovieDetailsNavigation
 import io.mockk.coEvery

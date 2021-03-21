@@ -1,9 +1,9 @@
 package com.example.feature.details.domain
 
-import com.example.feature.details.data.MovieDetailRepository
 import com.example.feature.details.data.model.Movie
 import com.example.feature.details.domain.model.TestData.movieData
 import com.example.feature.details.domain.model.TestData.movieDomain
+import com.example.feature.details.domain.repository.MovieDetailRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking

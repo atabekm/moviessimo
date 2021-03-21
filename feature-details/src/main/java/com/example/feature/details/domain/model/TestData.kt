@@ -6,9 +6,9 @@ import com.example.feature.details.data.model.Crew
 import com.example.feature.details.data.model.Genre
 import com.example.feature.details.data.model.Language
 import com.example.feature.details.data.model.Movie
-import com.example.feature.details.domain.converter.MovieConverter
+import com.example.feature.details.domain.converter.toDomain
 
-object TestData {
+internal object TestData {
     private const val GENRE_CRIME_ID = 80
     private const val GENRE_THRILLER_ID = 53
     private const val GENRE_DRAMA_ID = 18
@@ -92,5 +92,5 @@ object TestData {
         voteCount = 129
     )
 
-    val movieDomain = MovieConverter.fromDataToDomain(movieData)
+    val movieDomain = movieData.toDomain()
 }

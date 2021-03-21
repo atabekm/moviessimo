@@ -2,14 +2,14 @@ package com.example.feature.list.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class DiscoverMovie(
+internal data class DiscoverMovie(
     val page: Int,
     val results: List<Movie>,
     @SerializedName("total_results") val totalResults: Int,
     @SerializedName("total_pages") val totalPages: Int
 )
 
-data class Movie(
+internal data class Movie(
     val id: Int,
     val title: String,
     val overview: String = "",

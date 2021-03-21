@@ -2,7 +2,7 @@ package com.example.feature.details.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Movie(
+internal data class Movie(
     val adult: Boolean?,
     val id: Int?,
     val budget: Long?,

@@ -8,11 +8,11 @@ import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.screen.Screen.Companion.onScreen
 import com.example.core.utils.TestImageLoader
 import com.example.feature.list.R
-import com.example.feature.list.data.MovieListRepository
 import com.example.feature.list.data.model.DiscoverMovie
 import com.example.feature.list.data.model.Movie
 import com.example.feature.list.domain.DiscoverMoviesUseCase
-import com.example.feature.list.domain.converter.MovieConverter
+import com.example.feature.list.domain.converter.toDomain
+import com.example.feature.list.domain.repository.MovieListRepository
 import com.example.feature.list.navigation.MovieListNavigation
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -37,7 +37,7 @@ class ListFragmentTest : KoinTest {
     private val movieListData = (1..30).map { id ->
         Movie(id, "posterImage$id")
     }.toList()
-    private val movieListDomain = movieListData.map { MovieConverter.fromDataToDomain(it) }
+    private val movieListDomain = movieListData.map { it.toDomain() }
     private val discoverMovie = DiscoverMovie(
         1,
         movieListData,

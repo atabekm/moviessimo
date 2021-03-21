@@ -1,6 +1,6 @@
 package com.example.feature.details.domain.model
 
-data class Movie(
+internal data class Movie(
     val id: Int,
     val title: String,
     val overview: String,

@@ -12,7 +12,7 @@ import com.example.feature.list.R
 import com.example.feature.list.domain.model.Movie
 import com.example.feature.list.navigation.MovieListNavigation
 
-class MovieAdapter(
+internal class MovieAdapter(
     private val navigation: MovieListNavigation
 ) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
 
@@ -43,7 +43,7 @@ class MovieAdapter(
     }
 }
 
-class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
+internal class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
 
     override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
         return oldItem.hashCode() == newItem.hashCode()

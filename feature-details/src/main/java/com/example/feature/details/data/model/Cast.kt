@@ -2,7 +2,7 @@ package com.example.feature.details.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Cast(
+internal data class Cast(
     val id: Int,
     val name: String,
     val character: String,

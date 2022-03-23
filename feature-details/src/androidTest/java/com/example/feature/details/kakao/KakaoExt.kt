@@ -7,5 +7,7 @@ import com.agoda.kakao.common.assertions.BaseAssertions
 fun BaseAssertions.hasAlpha(alpha: Float) {
     view.check(
         ViewAssertions.matches(
-            ViewMatchers.withAlpha(alpha)))
+            ViewMatchers.withAlpha(alpha)
+        )
+    )
 }

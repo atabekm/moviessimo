@@ -57,9 +57,7 @@ class ListFragmentTest : KoinTest {
             )
         }
 
-        Coil.setDefaultImageLoader {
-            TestImageLoader()
-        }
+        Coil.setImageLoader(TestImageLoader())
     }
 
     @After

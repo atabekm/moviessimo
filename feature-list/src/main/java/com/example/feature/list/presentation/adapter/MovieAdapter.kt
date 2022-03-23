@@ -7,7 +7,7 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.example.feature.list.R
 import com.example.feature.list.domain.model.Movie
 import com.example.feature.list.navigation.MovieListNavigation

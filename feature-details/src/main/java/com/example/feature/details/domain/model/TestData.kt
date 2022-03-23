@@ -71,13 +71,16 @@ internal object TestData {
         tagline = "Put on a happy face",
         title = "Joker",
         video = false,
-        credits = Credit(cast = listOf(
-            cast1,
-            cast2
-        ), crew = listOf(
-            crew1,
-            crew2
-        )),
+        credits = Credit(
+            cast = listOf(
+                cast1,
+                cast2
+            ),
+            crew = listOf(
+                crew1,
+                crew2
+            )
+        ),
         backdropPath = "/hO7KbdvGOtDdeg0W4Y5nKEHeDDh.jpg",
         belongsToCollection = null,
         imdbId = "tt7286456",

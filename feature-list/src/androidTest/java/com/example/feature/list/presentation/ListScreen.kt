@@ -13,8 +13,8 @@ class ListScreen : Screen<ListScreen>() {
     val recycler: KRecyclerView = KRecyclerView({
         withId(R.id.movieRecycler)
     }, itemTypeBuilder = {
-        itemType(::MovieItem)
-    })
+            itemType(::MovieItem)
+        })
     val snackBar = KSnackbar()
 
     class MovieItem(parent: Matcher<View>) : KRecyclerItem<MovieItem>(parent) {

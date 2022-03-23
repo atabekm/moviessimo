@@ -34,17 +34,17 @@ class MovieConverterTest {
     @Test
     fun `verify movie conversion with invalid input`() {
         val result = movieData.copy(
-                id = null,
-                title = null,
-                overview = null,
-                genres = null,
-                runtime = null,
-                credits = null,
-                backdropPath = null,
-                posterPath = null,
-                releaseDate = null,
-                voteAverage = null
-            ).toDomain()
+            id = null,
+            title = null,
+            overview = null,
+            genres = null,
+            runtime = null,
+            credits = null,
+            backdropPath = null,
+            posterPath = null,
+            releaseDate = null,
+            voteAverage = null
+        ).toDomain()
         assertEquals(0, result.id)
         assertEquals("", result.title)
         assertEquals("", result.overview)

@@ -38,7 +38,7 @@ object CoreNetwork {
         }
         factory {
             OkHttpClient.Builder().apply {
-                if (getProperty(IS_DEBUG) == "true") {
+                if (getProperty<String>(IS_DEBUG) == "true") {
                     addInterceptor(get<Interceptor>(named(LOGGING_INTERCEPTOR)))
                 }
                 addInterceptor(get<Interceptor>(named(QUERY_INTERCEPTOR)))
@@ -46,7 +46,7 @@ object CoreNetwork {
         }
         single {
             Retrofit.Builder()
-                .baseUrl(getProperty(BASE_URL))
+                .baseUrl(getProperty<String>(BASE_URL))
                 .client(get())
                 .addConverterFactory(get())
                 .build()

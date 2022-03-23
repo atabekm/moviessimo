@@ -6,8 +6,6 @@ android {
     defaultConfig {
         minSdkVersion Android.min_sdk_version
         targetSdkVersion Android.target_sdk_version
-        versionCode Android.version_code
-        versionName Android.version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -17,18 +15,8 @@ android {
             minifyEnabled true
         }
     }
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-    }
 }
 
 dependencies {
-    implementation Libs.kotlin_std
     implementation Libs.ktx
 }

@@ -47,9 +47,7 @@ class DetailsFragmentTest : KoinTest {
             )
         }
 
-        Coil.setDefaultImageLoader {
-            TestImageLoader()
-        }
+        Coil.setImageLoader(TestImageLoader())
     }
 
     @After
@@ -61,9 +59,12 @@ class DetailsFragmentTest : KoinTest {
     fun verifyMovieDetailsIsPopulated_givenValidData() {
         coEvery { repository.getMovieDetails(movieId) } returns Response.success(movieData)
 
-        launchFragmentInContainer<DetailsFragment>(Bundle().apply {
-            putInt("movie_id", movieId)
-        }, R.style.Theme_AppCompat_Light_NoActionBar)
+        launchFragmentInContainer<DetailsFragment>(
+            Bundle().apply {
+                putInt("movie_id", movieId)
+            },
+            R.style.Theme_AppCompat_Light_NoActionBar
+        )
 
         onScreen<DetailsScreen> {
             backdrop {

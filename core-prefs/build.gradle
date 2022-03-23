@@ -2,5 +2,5 @@ apply plugin: 'com.android.library'
 apply from: '../library.gradle'
 
 dependencies {
-    implementation Libs.koin_android
+    implementation Libs.koin
 }

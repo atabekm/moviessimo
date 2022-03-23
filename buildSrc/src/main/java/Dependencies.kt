@@ -1,7 +1,7 @@
 object Android {
-    const val compile_sdk_version = 28
-    const val min_sdk_version = 21
-    const val target_sdk_version = 28
+    const val compile_sdk_version = 31
+    const val min_sdk_version = 24
+    const val target_sdk_version = 31
     const val version_code = 1
     const val version_name = "0.1"
 }
@@ -16,31 +16,31 @@ object Modules {
 }
 
 object Versions {
-    const val appcompat = "1.2.0"
-    const val coil = "0.7.0"
-    const val constraint_layout = "2.0.4"
+    const val appcompat = "1.4.1"
+    const val coil = "2.0.0-rc02"
+    const val constraint_layout = "2.1.3"
     const val core_testing = "2.1.0"
-    const val coroutines = "1.4.2"
-    const val espresso_core = "3.2.0"
-    const val fragment_testing = "1.3.1"
-    const val gradle = "4.1.3"
-    const val gson = "2.8.6"
-    const val junit = "4.12"
+    const val coroutines = "1.6.0"
+    const val espresso_core = "3.4.0"
+    const val fragment_testing = "1.4.1"
+    const val gradle = "7.1.2"
+    const val gson = "2.9.0"
+    const val junit = "4.13.2"
     const val kakao = "2.4.0"
-    const val koin = "2.2.2"
-    const val kotlin = "1.4.31"
-    const val ktx = "1.3.2"
-    const val lifecycle = "2.3.0"
-    const val material = "1.0.0"
-    const val mockk = "1.11.0"
-    const val navigation = "2.3.4"
-    const val recycler_view = "1.1.0"
+    const val koin = "3.1.5"
+    const val kotlin = "1.6.10"
+    const val ktx = "1.7.0"
+    const val lifecycle = "2.4.1"
+    const val material = "1.5.0"
+    const val mockk = "1.12.3"
+    const val navigation = "2.4.1"
+    const val recycler_view = "1.2.1"
     const val retrofit = "2.9.0"
-    const val test_core = "1.3.0"
-    const val test_ext = "1.1.1"
-    const val test_rules = "1.3.0"
-    const val test_runner = "1.3.0"
-    const val okhttp = "4.9.1"
+    const val test_core = "1.4.0"
+    const val test_ext = "1.1.3"
+    const val test_rules = "1.4.0"
+    const val test_runner = "1.4.0"
+    const val okhttp = "4.9.3"
 }
 
 object Libs {
@@ -50,16 +50,13 @@ object Libs {
     const val coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     const val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
     const val gson = "com.google.code.gson:gson:$${Versions.gson}"
-    const val koin_android = "org.koin:koin-android:${Versions.koin}"
-    const val koin_core = "org.koin:koin-core:${Versions.koin}"
-    const val koin_viewmodel = "org.koin:koin-androidx-viewmodel:${Versions.koin}"
-    const val kotlin_std = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
+    const val koin = "io.insert-koin:koin-android:${Versions.koin}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
     const val material = "com.google.android.material:material:${Versions.material}"
-    const val navigation = "android.arch.navigation:navigation-fragment-ktx:${Versions.navigation}"
-    const val navigation_ui = "android.arch.navigation:navigation-ui-ktx:${Versions.navigation}"
+    const val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
+    const val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
     const val okhttp_logging = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
     const val recycler_view = "androidx.recyclerview:recyclerview:${Versions.recycler_view}"
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
@@ -68,13 +65,13 @@ object Libs {
 }
 
 object TestLibs {
-    const val core_testing = "android.arch.core:core-testing:${Versions.core_testing}"
+    const val core_testing = "androidx.arch.core:core-testing:${Versions.core_testing}"
     const val espresso_contrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso_core}"
     const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
     const val fragment_testing = "androidx.fragment:fragment-testing:${Versions.fragment_testing}"
     const val junit = "junit:junit:${Versions.junit}"
     const val kakao = "com.agoda.kakao:kakao:${Versions.kakao}"
-    const val koin_test = "org.koin:koin-test:${Versions.koin}"
+    const val koin_test = "io.insert-koin:koin-test:${Versions.koin}"
     const val mockk = "io.mockk:mockk:${Versions.mockk}"
     const val mockk_android = "io.mockk:mockk-android:${Versions.mockk}"
     const val test_core = "androidx.test:core:${Versions.test_core}"

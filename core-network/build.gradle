@@ -2,8 +2,7 @@ apply plugin: 'com.android.library'
 apply from: '../library.gradle'
 
 dependencies {
-    implementation Libs.koin_core
-    implementation Libs.kotlin_std
+    implementation Libs.koin
     implementation Libs.retrofit
     implementation Libs.retrofit_gson
     implementation Libs.okhttp_logging

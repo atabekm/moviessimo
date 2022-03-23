@@ -21,9 +21,7 @@ dependencies {
     implementation Libs.coil
     implementation Libs.constraint_layout
     implementation Libs.gson
-    implementation Libs.kotlin_std
-    implementation Libs.koin_android
-    implementation Libs.koin_viewmodel
+    implementation Libs.koin
     implementation Libs.material
     implementation Libs.livedata
     implementation Libs.retrofit
@@ -36,7 +34,7 @@ dependencies {
     debugImplementation TestLibs.test_core
     androidTestImplementation TestLibs.espresso_core
     androidTestImplementation TestLibs.kakao
-    androidTestImplementation Libs.koin_core
+    androidTestImplementation Libs.koin
     androidTestImplementation TestLibs.koin_test
     androidTestImplementation TestLibs.mockk_android
     androidTestImplementation TestLibs.test_core

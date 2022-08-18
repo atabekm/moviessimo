@@ -1,7 +1,7 @@
 apply plugin: "io.gitlab.arturbosch.detekt"
 
 detekt {
-    toolVersion = "1.19.0"
+    toolVersion = "1.21.0"
     source = files(
             "src/main/kotlin",
             "src/main/java"

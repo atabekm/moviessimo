@@ -1,3 +1,4 @@
+// ktlint-disable filename
 package com.example.feature.list.domain.converter
 
 import com.example.feature.list.domain.model.Movie

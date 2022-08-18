@@ -1,3 +1,4 @@
+// ktlint-disable filename
 package com.example.feature.details.kakao
 
 import androidx.test.espresso.assertion.ViewAssertions

@@ -27,6 +27,7 @@ class DetailsFragment : Fragment(), AppBarLayout.OnOffsetChangedListener {
     private var maxScrollSize = 0.0
 
     private var _binding: FragmentDetailsBinding? = null
+
     // This property is only valid between onCreateView and onDestroyView.
     private val binding
         get() = _binding!!

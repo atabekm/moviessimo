@@ -22,6 +22,7 @@ class ListFragment : Fragment() {
     private val adapter = MovieAdapter(navigation)
 
     private var _binding: FragmentListBinding? = null
+
     // This property is only valid between onCreateView and onDestroyView.
     private val binding
         get() = _binding!!

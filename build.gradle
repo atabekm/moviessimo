@@ -26,16 +26,6 @@ allprojects {
     }
     apply from: "$rootDir/ktlint.gradle"
     apply from: "$rootDir/detekt.gradle"
-
-    // Temporary solution to handle the case when `./gradlew connectedAndroidTest` was failing with
-    // "D8: MethodHandle.invoke and MethodHandle.invokeExact are only supported starting with
-    // Android O (--min-api 26)" error, the issue has been reported in mockk library a while ago:
-    // https://github.com/mockk/mockk/issues/281
-    configurations.all {
-        resolutionStrategy {
-            force("org.objenesis:objenesis:2.6")
-        }
-    }
 }
 
 task clean(type: Delete) {

@@ -6,13 +6,15 @@ import com.example.feature.details.domain.model.TestData.movieDomain
 import com.example.feature.details.domain.repository.MovieDetailRepository
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import okhttp3.internal.http.RealResponseBody
 import okio.Buffer
 import org.junit.Assert
 import org.junit.Test
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GetMovieByIdUseCaseTest {
     private val repositoryMock = mockk<MovieDetailRepository>()
     private val responseSuccess: Response<Movie> = Response.success(movieData)
@@ -22,12 +24,12 @@ class GetMovieByIdUseCaseTest {
     private val movieId = 123
 
     @Test
-    fun `verify success case for GetMovieByIdUseCase`() {
+    fun `verify success case for GetMovieByIdUseCase`() = runTest {
         // given
         coEvery { repositoryMock.getMovieDetails(movieId) } returns responseSuccess
 
         // when
-        val result = runBlocking { useCase.invoke(movieId) }
+        val result = useCase.invoke(movieId)
 
         // then
         Assert.assertEquals(true, result.isSuccess)
@@ -35,12 +37,12 @@ class GetMovieByIdUseCaseTest {
     }
 
     @Test
-    fun `verify error case for GetMovieByIdUseCase`() {
+    fun `verify error case for GetMovieByIdUseCase`() = runTest {
         // given
         coEvery { repositoryMock.getMovieDetails(movieId) } returns responseError
 
         // when
-        val result = runBlocking { useCase.invoke(movieId) }
+        val result = useCase.invoke(movieId)
 
         // then
         Assert.assertEquals(false, result.isSuccess)

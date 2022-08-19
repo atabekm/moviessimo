@@ -5,13 +5,15 @@ import com.example.feature.list.data.model.Movie
 import com.example.feature.list.domain.repository.MovieListRepository
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.runTest
 import okhttp3.internal.http.RealResponseBody
 import okio.Buffer
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class DiscoverMoviesUseCaseTest {
     private val repositoryMock = mockk<MovieListRepository>()
     private val movieData = Movie(1, "title", posterPath = "/path")
@@ -24,12 +26,12 @@ class DiscoverMoviesUseCaseTest {
     private val useCase = DiscoverMoviesUseCase(repositoryMock)
 
     @Test
-    fun `verify success case for DiscoverMoviesUseCase`() {
+    fun `verify success case for DiscoverMoviesUseCase`() = runTest {
         // given
         coEvery { repositoryMock.getDiscoverMovies() } returns responseSuccess
 
         // when
-        val result = runBlocking { useCase.invoke() }
+        val result = useCase()
 
         // then
         assertEquals(true, result.isSuccess)
@@ -37,12 +39,12 @@ class DiscoverMoviesUseCaseTest {
     }
 
     @Test
-    fun `verify error case for DiscoverMoviesUseCase`() {
+    fun `verify error case for DiscoverMoviesUseCase`() = runTest {
         // given
         coEvery { repositoryMock.getDiscoverMovies() } returns responseError
 
         // when
-        val result = runBlocking { useCase.invoke() }
+        val result = useCase()
 
         // then
         assertEquals(false, result.isSuccess)

@@ -16,6 +16,6 @@ object FeatureList {
         single<MovieListRepository> { MovieListRepositoryImpl(get()) }
         single { DiscoverMoviesUseCase(get()) }
 
-        viewModel { ListViewModel(get()) }
+        viewModel { ListViewModel(get(), get()) }
     }
 }

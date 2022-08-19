@@ -3,6 +3,7 @@ package com.example.moviessimo
 import android.app.Application
 import com.example.core.network.di.CoreNetwork
 import com.example.core.prefs.di.CorePrefs
+import com.example.core.utils.di.CoreUtils
 import com.example.feature.details.di.FeatureDetail
 import com.example.feature.list.di.FeatureList
 import com.example.moviessimo.di.Navigation
@@ -30,6 +31,7 @@ class App : Application() {
                 listOf(
                     CoreNetwork.module,
                     CorePrefs.module,
+                    CoreUtils.module,
                     FeatureList.module,
                     FeatureDetail.module,
                     Navigation.module

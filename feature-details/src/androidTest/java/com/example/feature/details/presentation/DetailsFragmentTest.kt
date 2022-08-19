@@ -6,7 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import coil.Coil
 import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.screen.Screen.Companion.onScreen
-import com.example.core.utils.TestImageLoader
+import com.example.core.utils.dispatcher.TestDispatcherProvider
+import com.example.core.utils.image.TestImageLoader
 import com.example.feature.details.R
 import com.example.feature.details.domain.GetMovieByIdUseCase
 import com.example.feature.details.domain.model.TestData.movieData
@@ -16,7 +17,6 @@ import com.example.feature.details.kakao.hasAlpha
 import com.example.feature.details.navigation.MovieDetailsNavigation
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -42,7 +42,7 @@ class DetailsFragmentTest : KoinTest {
                     factory { movieDetailsNavigation }
                     factory { repository }
                     factory { GetMovieByIdUseCase(get()) }
-                    viewModel { DetailsViewModel(get(), Dispatchers.Main) }
+                    viewModel { DetailsViewModel(get(), TestDispatcherProvider()) }
                 }
             )
         }

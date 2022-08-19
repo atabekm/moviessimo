@@ -1,39 +1,28 @@
 package com.example.feature.list.presentation
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.core.network.model.Resource
+import com.example.core.mvi.MviViewModel
+import com.example.core.utils.dispatcher.DispatcherProvider
 import com.example.feature.list.domain.DiscoverMoviesUseCase
-import com.example.feature.list.domain.model.Movie
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.io.IOException
 
 internal class ListViewModel(
     private val useCase: DiscoverMoviesUseCase,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) : ViewModel() {
-    private val _movies = MutableLiveData<Resource<List<Movie>>>()
+    dispatcherProvider: DispatcherProvider
+) : MviViewModel<ListAction, ListState, ListEffect>(dispatcherProvider) {
 
-    val movies: LiveData<Resource<List<Movie>>> = _movies
-
-    fun requestMovies() {
-        _movies.postValue(Resource.loading())
-        viewModelScope.launch(dispatcher) {
-            try {
-                val result = useCase()
-
-                _movies.postValue(
+    override suspend fun reduce(action: ListAction): ListState {
+        val oldState = stateFlow.value ?: ListState()
+        return when (action) {
+            is ListAction.LoadMoviesAction -> {
+                try {
+                    val result = useCase()
                     when (result.isSuccess) {
-                        true -> Resource.success(result.data)
-                        false -> Resource.error("Failed to load movies: ${result.error}")
+                        true -> oldState.copy(movies = result.data, error = "")
+                        false -> oldState.copy(error = "Failed to load movies: ${result.error}")
                     }
-                )
-            } catch (e: IOException) {
-                _movies.postValue(Resource.error("Failed to load movies: ${e.localizedMessage}"))
+                } catch (e: IOException) {
+                    oldState.copy(error = "Failed to load movies: ${e.localizedMessage}")
+                }
             }
         }
     }

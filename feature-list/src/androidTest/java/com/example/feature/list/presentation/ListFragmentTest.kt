@@ -6,7 +6,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import coil.Coil
 import com.agoda.kakao.screen.Screen.Companion.idle
 import com.agoda.kakao.screen.Screen.Companion.onScreen
-import com.example.core.utils.TestImageLoader
+import com.example.core.utils.dispatcher.TestDispatcherProvider
+import com.example.core.utils.image.TestImageLoader
 import com.example.feature.list.R
 import com.example.feature.list.data.model.DiscoverMovie
 import com.example.feature.list.data.model.Movie
@@ -16,7 +17,6 @@ import com.example.feature.list.domain.repository.MovieListRepository
 import com.example.feature.list.navigation.MovieListNavigation
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import okhttp3.internal.http.RealResponseBody
 import okio.Buffer
 import org.junit.After
@@ -52,7 +52,7 @@ class ListFragmentTest : KoinTest {
                 module {
                     factory { movieListNavigation }
                     factory { DiscoverMoviesUseCase(repository) }
-                    viewModel { ListViewModel(get(), Dispatchers.Main) }
+                    viewModel { ListViewModel(get(), TestDispatcherProvider()) }
                 }
             )
         }

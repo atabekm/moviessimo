@@ -2,9 +2,8 @@ apply plugin: 'com.android.library'
 apply from: '../library.gradle'
 
 dependencies {
-    implementation Libs.coil
+    implementation project(Modules.core_utils)
+
     implementation Libs.coroutines_android
-    implementation Libs.fragment
-    implementation Libs.koin
     implementation Libs.viewmodel_ktx
 }

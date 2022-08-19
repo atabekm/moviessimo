@@ -7,6 +7,7 @@ object Android {
 }
 
 object Modules {
+    const val core_mvi = ":core-mvi"
     const val core_networks = ":core-network"
     const val core_prefs = ":core-prefs"
     const val core_testing = ":core-testing"
@@ -22,6 +23,7 @@ object Versions {
     const val core_testing = "2.1.0"
     const val coroutines = "1.6.4"
     const val espresso_core = "3.4.0"
+    const val fragment = "1.5.2"
     const val fragment_testing = "1.5.2"
     const val gradle = "7.2.2"
     const val gson = "2.9.1"
@@ -33,7 +35,7 @@ object Versions {
     const val lifecycle = "2.5.1"
     const val material = "1.6.1"
     const val mockk = "1.12.5"
-    const val navigation = "2.4.1"
+    const val navigation = "2.5.1"
     const val okhttp = "4.10.0"
     const val recycler_view = "1.2.1"
     const val retrofit = "2.9.0"
@@ -49,11 +51,11 @@ object Libs {
     const val constraint_layout = "androidx.constraintlayout:constraintlayout:${Versions.constraint_layout}"
     const val coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
     const val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
+    const val fragment = "androidx.fragment:fragment-ktx:${Versions.fragment}"
     const val gson = "com.google.code.gson:gson:$${Versions.gson}"
     const val koin = "io.insert-koin:koin-android:${Versions.koin}"
     const val ktx = "androidx.core:core-ktx:${Versions.ktx}"
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"
-    const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
     const val material = "com.google.android.material:material:${Versions.material}"
     const val navigation = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigation_ui = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
@@ -66,6 +68,7 @@ object Libs {
 
 object TestLibs {
     const val core_testing = "androidx.arch.core:core-testing:${Versions.core_testing}"
+    const val coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     const val espresso_contrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso_core}"
     const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
     const val fragment_testing = "androidx.fragment:fragment-testing:${Versions.fragment_testing}"

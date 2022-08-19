@@ -14,6 +14,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 dependencies {
+    implementation project(Modules.core_mvi)
     implementation project(Modules.core_networks)
     implementation project(Modules.core_utils)
 
@@ -22,12 +23,12 @@ dependencies {
     implementation Libs.constraint_layout
     implementation Libs.gson
     implementation Libs.koin
-    implementation Libs.livedata
     implementation Libs.material
     implementation Libs.retrofit
     implementation Libs.recycler_view
 
     testImplementation TestLibs.core_testing
+    testImplementation TestLibs.coroutines_test
     testImplementation TestLibs.junit
     testImplementation TestLibs.mockk
 

@@ -16,6 +16,6 @@ object FeatureDetail {
         single<MovieDetailRepository> { MovieDetailRepositoryImpl(get()) }
         single { GetMovieByIdUseCase(get()) }
 
-        viewModel { DetailsViewModel(get()) }
+        viewModel { DetailsViewModel(get(), get()) }
     }
 }

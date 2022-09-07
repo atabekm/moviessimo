@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.feature.list.R
-import com.example.feature.list.domain.model.Movie
+import com.example.feature.list.domain.model.MoviePoster
 
 internal class MovieAdapter(
     private val openMovieCallback: (Int) -> Unit
-) : ListAdapter<Movie, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
+) : ListAdapter<MoviePoster, MovieAdapter.ViewHolder>(MovieDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -30,25 +30,26 @@ internal class MovieAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: Movie, openMovieCallback: (Int) -> Unit) {
+        fun bind(movie: MoviePoster, openMovieCallback: (Int) -> Unit) {
             itemView.setOnClickListener {
                 openMovieCallback(movie.id)
             }
             itemView.findViewById<ImageView>(R.id.itemMovieImage).apply {
-                load(movie.posterImage)
-                tag = movie.posterImage
+                load(movie.posterImageUrl)
+                contentDescription = movie.title
+                tag = movie.posterImageUrl
             }
         }
     }
 }
 
-internal class MovieDiffCallback : DiffUtil.ItemCallback<Movie>() {
+internal class MovieDiffCallback : DiffUtil.ItemCallback<MoviePoster>() {
 
-    override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+    override fun areItemsTheSame(oldItem: MoviePoster, newItem: MoviePoster): Boolean {
         return oldItem.hashCode() == newItem.hashCode()
     }
 
-    override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
+    override fun areContentsTheSame(oldItem: MoviePoster, newItem: MoviePoster): Boolean {
         return oldItem == newItem
     }
 }

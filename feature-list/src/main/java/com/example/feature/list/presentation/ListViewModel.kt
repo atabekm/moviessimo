@@ -3,25 +3,41 @@ package com.example.feature.list.presentation
 import com.example.core.mvi.MviViewModel
 import com.example.core.utils.dispatcher.DispatcherProvider
 import com.example.feature.list.domain.DiscoverMoviesUseCase
+import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
+import org.orbitmvi.orbit.syntax.simple.reduce
 import java.io.IOException
 
 internal class ListViewModel(
     private val useCase: DiscoverMoviesUseCase,
     dispatcherProvider: DispatcherProvider
-) : MviViewModel<ListAction, ListState, ListEffect>(dispatcherProvider) {
+) : MviViewModel<ListAction, ListState, ListEffect>(ListState(), dispatcherProvider) {
 
-    override suspend fun reduce(action: ListAction): ListState {
-        val oldState = stateFlow.value ?: ListState()
-        return when (action) {
+    override fun dispatch(action: ListAction) = intent {
+        when (action) {
             is ListAction.LoadMoviesAction -> {
-                try {
+                reduce {
+                    state.copy(isLoading = true)
+                }
+
+                val newState: ListState = try {
                     val result = useCase()
                     when (result.isSuccess) {
-                        true -> oldState.copy(movies = result.data, error = "")
-                        false -> oldState.copy(error = "Failed to load movies: ${result.error}")
+                        true -> {
+                            state.copy(moviePosters = result.data, isLoading = false)
+                        }
+                        false -> {
+                            postSideEffect(ListEffect.ListErrorEffect("Failed to load movies: ${result.error}"))
+                            state.copy(isLoading = false)
+                        }
                     }
                 } catch (e: IOException) {
-                    oldState.copy(error = "Failed to load movies: ${e.localizedMessage}")
+                    postSideEffect(ListEffect.ListErrorEffect("Failed to load movies: ${e.localizedMessage}"))
+                    state.copy(isLoading = false)
+                }
+
+                reduce {
+                    state.copy(moviePosters = newState.moviePosters, isLoading = newState.isLoading)
                 }
             }
         }

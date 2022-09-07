@@ -24,12 +24,14 @@ dependencies {
     implementation Libs.gson
     implementation Libs.koin
     implementation Libs.material
+    implementation Libs.orbit
     implementation Libs.retrofit
 
     testImplementation TestLibs.core_testing
     testImplementation TestLibs.coroutines_test
     testImplementation TestLibs.junit
     testImplementation TestLibs.mockk
+    testImplementation TestLibs.orbit
 
     debugImplementation TestLibs.fragment_testing
     debugImplementation TestLibs.test_core

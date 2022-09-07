@@ -8,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import coil.load
 import com.example.core.utils.viewBinding
 import com.example.feature.details.R
@@ -16,12 +15,9 @@ import com.example.feature.details.databinding.FragmentDetailsBinding
 import com.example.feature.details.navigation.MovieDetailsNavigation
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.orbitmvi.orbit.viewmodel.observe
 import kotlin.math.abs
 
 class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffsetChangedListener {
@@ -31,7 +27,6 @@ class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffs
     private var movieId = 0
     private var isPosterShown = true
     private var maxScrollSize = 0.0
-    private var snackbar: Snackbar? = null
 
     companion object {
         const val POSTER_ANIMATION_DURATION = 200L
@@ -46,7 +41,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffs
         arguments?.apply {
             movieId = getInt("movie_id")
         }
-        viewModel.dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
+        openMovieDetails()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,39 +59,7 @@ class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffs
             navigation.goToMovieList()
         }
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.observeState().filterNotNull()
-                .onStart { emit(DetailsState(isLoading = true)) }
-                .onEach { state ->
-                    binding.detailRoot.isInvisible = true
-                    binding.detailProgress.isVisible = state.isLoading
-                    state.movie?.apply {
-                        binding.detailCollapsingToolbar.title = title
-                        binding.detailBackdrop.load(backdropImage)
-                        binding.detailPoster.load(posterImage)
-                        binding.detailGenres.text = genres
-                        binding.detailDuration.text = duration
-                        binding.detailRating.rating = rating
-                        binding.detailOverview.text = overview
-                        binding.detailDirector.text = director
-                        binding.detailScreenplayCaption.isVisible = screenplay.isNotEmpty()
-                        binding.detailScreenplay.text = screenplay
-                        binding.detailCasting.text = cast
-                        binding.detailRoot.isVisible = true
-                    }
-
-                    if (state.error.isEmpty()) {
-                        snackbar?.dismiss()
-                    } else {
-                        snackbar = Snackbar.make(binding.detailRoot, state.error, Snackbar.LENGTH_INDEFINITE)
-                            .setAction(getString(R.string.retry)) {
-                                viewModel.dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
-                            }
-                        snackbar?.show()
-                    }
-                }
-                .launchIn(this)
-        }
+        viewModel.observe(viewLifecycleOwner, ::render, ::handleSideEffects)
     }
 
     override fun onResume() {
@@ -123,6 +86,41 @@ class DetailsFragment : Fragment(R.layout.fragment_details), AppBarLayout.OnOffs
             isPosterShown = true
             animateView(binding.detailPoster, true)
         }
+    }
+
+    private fun render(state: DetailsState) {
+        binding.detailRoot.isInvisible = true
+        binding.detailProgress.isVisible = state.isLoading
+        state.movie?.apply {
+            binding.detailCollapsingToolbar.title = title
+            binding.detailBackdrop.load(backdropImage)
+            binding.detailPoster.load(posterImage)
+            binding.detailGenres.text = genres
+            binding.detailDuration.text = duration
+            binding.detailRating.rating = rating
+            binding.detailOverview.text = overview
+            binding.detailDirector.text = director
+            binding.detailScreenplayCaption.isVisible = screenplay.isNotEmpty()
+            binding.detailScreenplay.text = screenplay
+            binding.detailCasting.text = cast
+            binding.detailRoot.isVisible = true
+        }
+    }
+
+    private fun handleSideEffects(effect: DetailsEffect) {
+        when (effect) {
+            is DetailsEffect.DetailsErrorEffect -> {
+                Snackbar.make(binding.detailRoot, effect.message, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(getString(R.string.retry)) {
+                        openMovieDetails()
+                    }
+                    .show()
+            }
+        }
+    }
+
+    private fun openMovieDetails() {
+        viewModel.dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
     }
 
     private fun animateView(view: View, isVisible: Boolean) {

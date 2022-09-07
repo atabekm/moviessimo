@@ -1,35 +1,17 @@
 package com.example.core.mvi
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.core.utils.dispatcher.DispatcherProvider
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import org.orbitmvi.orbit.Container
+import org.orbitmvi.orbit.ContainerHost
+import org.orbitmvi.orbit.viewmodel.container
 
 abstract class MviViewModel<A : MviAction, S : MviState, E : MviEffect>(
-    private val dispatcherProvider: DispatcherProvider
-) : ViewModel() {
-    protected val stateFlow: MutableStateFlow<S?> = MutableStateFlow(null)
-    protected val effectFlow = MutableSharedFlow<E?>()
+    defaultState: S,
+    dispatcherProvider: DispatcherProvider
+) : ContainerHost<S, E>, ViewModel() {
 
-    fun observeState(): StateFlow<S?> = stateFlow
-    fun observeEffect(): Flow<E?> = effectFlow
+    override val container = container<S, E>(defaultState, settings = Container.Settings(intentDispatcher = dispatcherProvider.io))
 
-    fun dispatch(action: A) {
-        viewModelScope.launch(dispatcherProvider.main) {
-            val oldState = stateFlow.value
-            val newState = withContext(dispatcherProvider.io) {
-                reduce(action)
-            }
-            if (oldState != newState) {
-                stateFlow.value = newState
-            }
-        }
-    }
-
-    protected abstract suspend fun reduce(action: A): S
+    abstract fun dispatch(action: A)
 }

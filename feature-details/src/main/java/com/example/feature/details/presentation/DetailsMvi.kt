@@ -11,8 +11,9 @@ internal sealed class DetailsAction : MviAction {
 
 internal data class DetailsState(
     val isLoading: Boolean = false,
-    val movie: Movie? = null,
-    val error: String = ""
+    val movie: Movie? = null
 ) : MviState
 
-internal sealed class DetailsEffect : MviEffect
+internal sealed class DetailsEffect : MviEffect {
+    data class DetailsErrorEffect(val message: String) : DetailsEffect()
+}

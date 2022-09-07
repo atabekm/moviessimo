@@ -4,21 +4,21 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.core.network.model.NetworkResponse
 import com.example.core.utils.dispatcher.TestDispatcherProvider
 import com.example.feature.list.domain.DiscoverMoviesUseCase
-import com.example.feature.list.domain.model.Movie
+import com.example.feature.list.domain.model.MoviePoster
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.orbitmvi.orbit.test
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class ListViewModelTest {
     private val useCaseMock = mockk<DiscoverMoviesUseCase>()
     private val viewModel = ListViewModel(useCaseMock, TestDispatcherProvider())
-    private val movieDomain = Movie(1, "https://image.tmdb.org/t/p/w185/path")
+    private val movieDomain = MoviePoster(1, "title", "https://image.tmdb.org/t/p/w185/path")
     private val errorMessage = "error message"
 
     @get:Rule
@@ -29,14 +29,20 @@ class ListViewModelTest {
         // given
         coEvery { useCaseMock.invoke() } returns NetworkResponse(true, listOf(movieDomain), "")
 
+        val testSubject = viewModel.test()
+
         // when
-        viewModel.dispatch(ListAction.LoadMoviesAction)
+        testSubject.testIntent {
+            dispatch(ListAction.LoadMoviesAction)
+        }
 
         // then
-        val result = viewModel.observeState().value!!
-        assertEquals(listOf(movieDomain), result.movies)
-        assertEquals("", result.error)
-        assertEquals(false, result.isLoading)
+        testSubject.assert(ListState()) {
+            states(
+                { copy(isLoading = true) },
+                { copy(moviePosters = listOf(movieDomain), isLoading = false) }
+            )
+        }
     }
 
     @Test
@@ -44,14 +50,24 @@ class ListViewModelTest {
         // given
         coEvery { useCaseMock.invoke() } returns NetworkResponse(false, listOf(), errorMessage)
 
+        val testSubject = viewModel.test()
+
         // when
-        viewModel.dispatch(ListAction.LoadMoviesAction)
+        testSubject.testIntent {
+            dispatch(ListAction.LoadMoviesAction)
+        }
 
         // then
-        val result = viewModel.observeState().value!!
-        assertEquals(listOf<Movie>(), result.movies)
-        assertEquals("Failed to load movies: $errorMessage", result.error)
-        assertEquals(false, result.isLoading)
+        testSubject.assert(ListState()) {
+            states(
+                { copy(isLoading = true) },
+                { copy(moviePosters = listOf(), isLoading = false) }
+            )
+
+            postedSideEffects(
+                ListEffect.ListErrorEffect("Failed to load movies: $errorMessage")
+            )
+        }
     }
 
     @Test
@@ -59,13 +75,23 @@ class ListViewModelTest {
         // given
         coEvery { useCaseMock.invoke() } throws IOException()
 
+        val testSubject = viewModel.test()
+
         // when
-        viewModel.dispatch(ListAction.LoadMoviesAction)
+        testSubject.testIntent {
+            dispatch(ListAction.LoadMoviesAction)
+        }
 
         // then
-        val result = viewModel.observeState().value!!
-        assertEquals(listOf<Movie>(), result.movies)
-        assertEquals("Failed to load movies: null", result.error)
-        assertEquals(false, result.isLoading)
+        testSubject.assert(ListState()) {
+            states(
+                { copy(isLoading = true) },
+                { copy(moviePosters = listOf(), isLoading = false) }
+            )
+
+            postedSideEffects(
+                ListEffect.ListErrorEffect("Failed to load movies: null")
+            )
+        }
     }
 }

@@ -9,9 +9,9 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
+import org.orbitmvi.orbit.test
 import java.io.IOException
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -29,14 +29,20 @@ class DetailsViewModelTest {
         // given
         coEvery { useCaseMock.invoke(movieId) } returns NetworkResponse(true, movieDomain, "")
 
+        val testSubject = viewModel.test()
+
         // when
-        viewModel.dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
+        testSubject.testIntent {
+            dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
+        }
 
         // then
-        val result = viewModel.observeState().value!!
-        assertEquals(movieDomain, result.movie)
-        assertEquals("", result.error)
-        assertEquals(false, result.isLoading)
+        testSubject.assert(DetailsState()) {
+            states(
+                { copy(isLoading = true) },
+                { copy(movie = movieDomain, isLoading = false) }
+            )
+        }
     }
 
     @Test
@@ -48,28 +54,48 @@ class DetailsViewModelTest {
             errorMessage
         )
 
+        val testSubject = viewModel.test()
+
         // when
-        viewModel.dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
+        testSubject.testIntent {
+            dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
+        }
 
         // then
-        val result = viewModel.observeState().value!!
-        assertEquals(null, result.movie)
-        assertEquals("Failed to get movie details: $errorMessage", result.error)
-        assertEquals(false, result.isLoading)
+        testSubject.assert(DetailsState()) {
+            states(
+                { copy(isLoading = true) },
+                { copy(movie = null, isLoading = false) }
+            )
+
+            postedSideEffects(
+                DetailsEffect.DetailsErrorEffect("Failed to get movie details: $errorMessage")
+            )
+        }
     }
 
     @Test
-    fun `verify DetailViewModel's getMovieDetails error scenario`() {
+    fun `verify DetailViewModel's getMovieDetails error scenario`() = runTest {
         // given
         coEvery { useCaseMock.invoke(movieId) } throws IOException()
 
+        val testSubject = viewModel.test()
+
         // when
-        viewModel.dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
+        testSubject.testIntent {
+            dispatch(DetailsAction.OpenMovieDetailsAction(movieId))
+        }
 
         // then
-        val result = viewModel.observeState().value!!
-        assertEquals(null, result.movie)
-        assertEquals("Failed to get movie details: null", result.error)
-        assertEquals(false, result.isLoading)
+        testSubject.assert(DetailsState()) {
+            states(
+                { copy(isLoading = true) },
+                { copy(movie = null, isLoading = false) }
+            )
+
+            postedSideEffects(
+                DetailsEffect.DetailsErrorEffect("Failed to get movie details: null")
+            )
+        }
     }
 }

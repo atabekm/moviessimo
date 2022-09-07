@@ -13,7 +13,7 @@ class MovieConverterTest {
         assertEquals(movieData.id, movieDomain.id)
         assertEquals(
             "https://image.tmdb.org/t/p/w185${movieData.posterPath}",
-            movieDomain.posterImage
+            movieDomain.posterImageUrl
         )
     }
 }

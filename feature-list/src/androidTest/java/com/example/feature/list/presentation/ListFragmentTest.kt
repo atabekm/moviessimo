@@ -80,7 +80,7 @@ class ListFragmentTest : KoinTest {
                     isDisplayed()
                     image {
                         isVisible()
-                        hasTag(movieListDomain.first().posterImage)
+                        hasTag(movieListDomain.first().posterImageUrl)
                     }
                 }
 
@@ -90,7 +90,7 @@ class ListFragmentTest : KoinTest {
                     isDisplayed()
                     image {
                         isVisible()
-                        hasTag(movieListDomain.last().posterImage)
+                        hasTag(movieListDomain.last().posterImageUrl)
                     }
                 }
             }

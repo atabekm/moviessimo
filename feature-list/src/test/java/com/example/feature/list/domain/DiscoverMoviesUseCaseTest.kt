@@ -18,7 +18,7 @@ class DiscoverMoviesUseCaseTest {
     private val repositoryMock = mockk<MovieListRepository>()
     private val movieData = Movie(1, "title", posterPath = "/path")
     private val movieDomain =
-        com.example.feature.list.domain.model.Movie(1, "https://image.tmdb.org/t/p/w185/path")
+        com.example.feature.list.domain.model.MoviePoster(1, "title", "https://image.tmdb.org/t/p/w185/path")
     private val discoverMovie = DiscoverMovie(1, listOf(movieData), 0, 0)
     private val responseSuccess: Response<DiscoverMovie> = Response.success(discoverMovie)
     private val responseError: Response<DiscoverMovie> =

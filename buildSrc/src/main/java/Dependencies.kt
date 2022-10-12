@@ -1,7 +1,7 @@
 object Android {
-    const val compile_sdk_version = 32
+    const val compile_sdk_version = 33
     const val min_sdk_version = 24
-    const val target_sdk_version = 32
+    const val target_sdk_version = 33
     const val version_code = 1
     const val version_name = "0.1"
 }
@@ -17,25 +17,24 @@ object Modules {
 }
 
 object Versions {
-    const val appcompat = "1.5.0"
-    const val coil = "2.2.0"
+    const val appcompat = "1.5.1"
+    const val coil = "2.2.2"
     const val constraint_layout = "2.1.4"
     const val core_testing = "2.1.0"
     const val coroutines = "1.6.4"
     const val espresso_core = "3.4.0"
-    const val fragment = "1.5.2"
-    const val fragment_testing = "1.5.2"
-    const val gradle = "7.2.2"
+    const val fragment = "1.5.3"
+    const val gradle = "7.3.0"
     const val gson = "2.9.1"
     const val junit = "4.13.2"
     const val kakao = "2.4.0"
-    const val koin = "3.2.0"
-    const val kotlin = "1.7.10"
-    const val ktx = "1.8.0"
+    const val koin = "3.2.2"
+    const val kotlin = "1.7.20"
+    const val ktx = "1.9.0"
     const val lifecycle = "2.5.1"
     const val material = "1.6.1"
-    const val mockk = "1.12.5"
-    const val navigation = "2.5.1"
+    const val mockk = "1.13.2"
+    const val navigation = "2.5.2"
     const val okhttp = "4.10.0"
     const val orbit = "4.3.2"
     const val recycler_view = "1.2.1"
@@ -73,7 +72,7 @@ object TestLibs {
     const val coroutines_test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
     const val espresso_contrib = "androidx.test.espresso:espresso-contrib:${Versions.espresso_core}"
     const val espresso_core = "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
-    const val fragment_testing = "androidx.fragment:fragment-testing:${Versions.fragment_testing}"
+    const val fragment_testing = "androidx.fragment:fragment-testing:${Versions.fragment}"
     const val junit = "junit:junit:${Versions.junit}"
     const val kakao = "com.agoda.kakao:kakao:${Versions.kakao}"
     const val koin_test = "io.insert-koin:koin-test:${Versions.koin}"

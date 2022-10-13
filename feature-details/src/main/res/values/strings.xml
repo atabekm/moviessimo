@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Feature Details</string>
-    <string name="backdrop">backdrop</string>
+    <string name="back">Back</string>
     <string name="cast">Cast</string>
     <string name="overview">Overview</string>
     <string name="director">Director</string>

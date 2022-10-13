@@ -11,7 +11,7 @@ Project features:
 
 * 100% [Kotlin](https://kotlinlang.org/)
 * [Android Jetpack libraries](https://developer.android.com/jetpack) (ViewModel, Lifecycle, Navigation)
-* Jetpack Compose (for now in [experiment/jetpack-compose](https://github.com/atabekm/moviessimo/tree/experiment/jetpack-compose) branch)
+* Jetpack Compose (for now in [experiment/compose](https://github.com/atabekm/moviessimo/tree/experiment/compose) branch)
 * Clean architecture ([wiki](https://github.com/atabekm/moviessimo/wiki/Clean-architecture-diagrams))
 * Multi-modular approach ([wiki](https://github.com/atabekm/moviessimo/wiki/Gradle-dependencies))
 * Single activity (with [Navigation component](https://developer.android.com/guide/navigation/navigation-getting-started) to navigate between fragments)

@@ -3,14 +3,12 @@ apply from: '../library.gradle'
 
 android {
     buildFeatures {
-        viewBinding true
+        compose true
     }
-}
-
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose_compiler
     }
+    namespace "com.example.feature.details"
 }
 
 dependencies {
@@ -18,13 +16,14 @@ dependencies {
     implementation project(Modules.core_networks)
     implementation project(Modules.core_utils)
 
-    implementation Libs.appcompat
-    implementation Libs.coil
-    implementation Libs.constraint_layout
+    implementation Libs.coil_compose
+    implementation Libs.compose_lifecycle
+    implementation Libs.compose_material
+    implementation Libs.compose_ui
+    implementation Libs.compose_ui_tooling_preview
     implementation Libs.gson
-    implementation Libs.koin
-    implementation Libs.material
-    implementation Libs.orbit
+    implementation Libs.koin_compose
+    implementation Libs.orbit_compose
     implementation Libs.retrofit
 
     testImplementation TestLibs.core_testing
@@ -33,10 +32,8 @@ dependencies {
     testImplementation TestLibs.mockk
     testImplementation TestLibs.orbit
 
-    debugImplementation TestLibs.fragment_testing
+    debugImplementation Libs.compose_ui_tooling
     debugImplementation TestLibs.test_core
-    androidTestImplementation TestLibs.espresso_core
-    androidTestImplementation TestLibs.kakao
     androidTestImplementation Libs.koin
     androidTestImplementation TestLibs.koin_test
     androidTestImplementation TestLibs.mockk_android

@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
 apply from: '../library.gradle'
 
+android {
+    namespace "com.example.core.network"
+}
+
 dependencies {
     implementation Libs.koin
     implementation Libs.retrofit

@@ -1,10 +1,13 @@
 apply plugin: 'com.android.library'
 apply from: '../library.gradle'
 
+android {
+    namespace "com.example.core.utils"
+}
+
 dependencies {
     implementation Libs.coil
     implementation Libs.coroutines_android
-    implementation Libs.fragment
     implementation Libs.koin
     implementation Libs.viewmodel_ktx
 }

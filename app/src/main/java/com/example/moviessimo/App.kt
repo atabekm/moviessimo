@@ -6,7 +6,6 @@ import com.example.core.prefs.di.CorePrefs
 import com.example.core.utils.di.CoreUtils
 import com.example.feature.details.di.FeatureDetail
 import com.example.feature.list.di.FeatureList
-import com.example.moviessimo.di.Navigation
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -33,8 +32,7 @@ class App : Application() {
                     CorePrefs.module,
                     CoreUtils.module,
                     FeatureList.module,
-                    FeatureDetail.module,
-                    Navigation.module
+                    FeatureDetail.module
                 )
             )
         }

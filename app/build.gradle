@@ -10,6 +10,9 @@ android {
         versionCode Android.version_code
         versionName Android.version_name
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
     buildTypes {
         // put your TMDB api_key to local.properties file
@@ -29,6 +32,18 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose_compiler
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+    namespace "com.example.moviessimo"
 }
 
 dependencies {
@@ -39,8 +54,11 @@ dependencies {
     implementation project(Modules.feature_list)
 
     implementation Libs.appcompat
-    implementation Libs.constraint_layout
+    implementation Libs.compose_ui
+    implementation Libs.compose_material
+    implementation Libs.compose_navigation
+    implementation Libs.compose_ui_tooling_preview
+    implementation Libs.compose_activity
     implementation Libs.koin
     implementation Libs.ktx
-    implementation Libs.navigation
 }

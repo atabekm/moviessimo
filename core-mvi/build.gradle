@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
 apply from: '../library.gradle'
 
+android {
+    namespace "com.example.core.mvi"
+}
+
 dependencies {
     implementation project(Modules.core_utils)
 
